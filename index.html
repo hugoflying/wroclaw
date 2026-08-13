@@ -77,6 +77,8 @@
   .dish{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;font-size:13.5px;line-height:1.5;color:#3f382e}
   .dish b{color:var(--accent)}
 
+  .card.hotel{border:1.5px solid var(--accent);background:#fdf3ee}
+
   .conv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:16px}
   .conv h3{margin:0 0 12px;font-size:15px}
   .conv .row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -643,7 +645,7 @@
     const KEY='wro_done_v1';
     let done={};
     try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){done={}}
-    document.querySelectorAll('#p0 .card').forEach((card,idx)=>{
+    document.querySelectorAll('#p0 .card:not(.no-check)').forEach((card,idx)=>{
       const id='act-'+idx;
       const head=card.querySelector('.head');
       const btn=document.createElement('button');
