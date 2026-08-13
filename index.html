@@ -15,13 +15,14 @@
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
   .app{display:flex;flex-direction:column;height:100dvh}
 
+  .banner{flex:0 0 auto;background:linear-gradient(135deg,#c0451f,#c68a2e);color:#fff;text-align:center;padding:9px 12px;font-weight:800;font-size:15px;letter-spacing:5px;box-shadow:0 2px 8px rgba(120,60,20,.2);z-index:6}
+
   .viewport{flex:1 1 auto;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .viewport::-webkit-scrollbar{display:none}
   .pane{flex:0 0 100%;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start;-webkit-overflow-scrolling:touch;padding:18px 14px calc(var(--nav-h) + 20px)}
   .pane::-webkit-scrollbar{display:none}
 
-  h2.title{font-size:19px;margin:2px 4px 2px}
-  .sub{font-size:13px;color:var(--muted);margin:0 4px 14px}
+  h2.title{font-size:19px;margin:2px 4px 16px}
   .cat{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin:22px 4px 10px;display:flex;align-items:center;gap:7px}
   .cat span{font-size:15px}
 
@@ -51,6 +52,16 @@
   a.walk{background:var(--accent2);color:#fff}
   a.tram{background:#2b6fb0;color:#fff}
   a.btn:active{transform:scale(.97)}
+  a.mlink{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;font-weight:700;font-size:12.5px;padding:11px 15px;border-radius:12px;text-decoration:none;margin-bottom:6px}
+
+  .card.done{opacity:.42}
+  .card.done h3,.card.done .fr{text-decoration:line-through}
+  .check{margin-left:auto;align-self:flex-start;flex:0 0 auto;border:1.5px solid var(--accent);background:#fff;color:var(--accent);font-family:inherit;font-weight:700;font-size:11px;padding:6px 10px;border-radius:20px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .check.on{background:var(--accent2);border-color:var(--accent2);color:#fff}
+  .check:active{transform:scale(.95)}
+
+  .dish{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;font-size:13.5px;line-height:1.5;color:#3f382e}
+  .dish b{color:var(--accent)}
 
   .conv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:16px}
   .conv h3{margin:0 0 12px;font-size:15px}
@@ -60,25 +71,32 @@
   .conv input:focus{outline:2px solid var(--gold);border-color:var(--gold)}
   .conv .rate-info{font-size:11.5px;color:var(--muted);margin-top:2px}
 
+  .phrases{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 14px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
+  .ph{padding:10px 0;border-bottom:1px solid var(--line)}
+  .ph:last-child{border-bottom:0}
+  .ph .fr2{font-size:12.5px;color:var(--muted)}
+  .ph .pl{font-size:15px;font-weight:700;margin-top:1px}
+  .ph .fo{font-size:12.5px;color:var(--accent2);font-style:italic}
+
   .bottomnav{flex:0 0 auto;height:var(--nav-h);background:#fff;border-top:1px solid var(--line);display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;box-shadow:0 -3px 14px rgba(70,50,20,.08);padding-bottom:env(safe-area-inset-bottom)}
   .navbtn{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--muted);font-family:inherit;padding:6px 0}
   .navbtn .ic{font-size:20px;line-height:1}
-  .navbtn .lb{font-size:11px;font-weight:600}
+  .navbtn .lb{font-size:10.5px;font-weight:600}
   .navbtn.active{color:var(--accent)}
   .navbtn::after{content:"";height:3px;width:24px;border-radius:3px;background:transparent;margin-top:3px}
   .navbtn.active::after{background:var(--accent)}
-  .hint{text-align:center;font-size:11px;color:var(--muted);margin:0 0 10px}
 </style>
 </head>
 <body>
 <div class="app">
 
+  <div class="banner">WROCŁAW</div>
+
   <div class="viewport" id="viewport">
 
     <!-- ===== VISITES ===== -->
     <div class="pane" id="p0">
-      <h2 class="title">Wrocław — à voir</h2>
-      <p class="sub">Toutes les activités classées par proximité, du sud-ouest de la vieille ville vers l'est. Piochez librement. Le bouton ouvre l'itinéraire <b>depuis votre position</b>. Cherchez les <b>krasnale</b> (nains en bronze) en chemin !</p>
+      <h2 class="title">Activités et visites</h2>
 
       <div class="card">
         <div class="head"><div class="num">1</div><div>
@@ -148,7 +166,7 @@
           <div class="meta"><span class="rate">★ 4,9</span><span class="euro">Plein tarif ≈ 9 € /pers.</span></div>
         </div></div>
         <p>Expérience sensorielle guidée dans l'obscurité complète, par une personne malvoyante : on découvre le monde par l'ouïe, l'odorat et le toucher. Bouleversant et unique.</p>
-        <div class="tip">💡 Réservation obligatoire, et visite en anglais uniquement sur demande préalable (par téléphone/mail).</div>
+        <div class="tip">💡 Réservation obligatoire, et visite en anglais uniquement sur demande préalable (téléphone/mail).</div>
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1096493,17.0357988&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
@@ -168,7 +186,7 @@
           <div class="fr">Le musée des Illusions</div>
           <div class="meta"><span class="rate">★ 4,5</span><span class="euro">Plein tarif ≈ 13 € /pers.</span></div>
         </div></div>
-        <p>Musée interactif d'illusions d'optique sur l'île de Sable : miroirs déformants, pièces truquées, jeux de perspective. Amusant et malin, très photogénique.</p>
+        <p>Musée interactif d'illusions d'optique sur l'île de Sable : miroirs déformants, pièces truquées, jeux de perspective. Amusant et très photogénique.</p>
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1153227,17.0398388&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
@@ -236,6 +254,17 @@
 
       <div class="card">
         <div class="head"><div class="num">16</div><div>
+          <h3>Zoo Wrocław &amp; Afrykarium</h3>
+          <div class="fr">Le zoo &amp; l'Afrykarium (aquarium africain)</div>
+          <div class="meta"><span class="rate">★ 4,7</span><span class="euro">Plein tarif ≈ 16 € /pers.</span></div>
+        </div></div>
+        <p>L'un des plus beaux zoos d'Europe, et surtout l'<b>Afrykarium</b> : d'immenses aquariums (requins, raies, hippos, lamantins, manchots) uniques au monde. Prévois une demi-journée.</p>
+        <div class="tip">💡 Même billet pour le zoo et l'Afrykarium. Commence par l'Afrykarium, très prisé.</div>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1056261,17.0762488&travelmode=transit">🚉 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="num">17</div><div>
           <h3>Kolejkowo</h3>
           <div class="fr">La ville miniature &amp; trains</div>
           <div class="meta"><span class="rate">★ 4,8</span><span class="euro">Plein tarif ≈ 10 € /pers.</span></div>
@@ -245,30 +274,53 @@
       </div>
     </div>
 
-    <!-- ===== RESTOS ===== -->
+    <!-- ===== RESTAURATION ===== -->
     <div class="pane" id="p1">
-      <h2 class="title">Restos — européen classique &amp; raffiné</h2>
-      <p class="sub">Notes = avis Google. Tarifs par personne (plat ou menu, hors boissons). ⚠️ = plats à éviter vu les goûts de ta maman (fruits de mer, chou).</p>
+      <h2 class="title">Restauration</h2>
+      <a class="mlink" href="https://guide.michelin.com/fr/fr/lower-silesia/wroclaw_2399695/restaurants">🔴 Guide Michelin de Wrocław ↗</a>
 
-      <div class="cat"><span>⭐</span> Gastronomique &amp; guide Michelin</div>
+      <div class="cat"><span>⭐</span> Bib Gourmand (guide Michelin)</div>
 
       <div class="card">
-        <div class="tags"><span class="tag t-star">★ MICHELIN</span></div>
-        <h3>Restauracja MOST — Między Mostami</h3>
-        <div class="fr">« Entre les ponts » · polonais moderne raffiné</div>
-        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 80–130 € (menu dégustation)</span></div>
-        <p>La table étoilée de la ville : menu dégustation créatif, service remarquable, cadre chic au bord de l'eau. L'expérience gastronomique du séjour.</p>
-        <div class="avoid">⚠️ Menu imposé pouvant inclure poisson/huître — préviens des aversions à la réservation.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.114762,17.0311294&travelmode=walking">🚶 M'y emmener</a></div>
+        <div class="tags"><span class="tag t-star">BIB GOURMAND</span></div>
+        <h3>IDA kuchnia i wino</h3>
+        <div class="fr">« IDA cuisine &amp; vin » · polonais moderne</div>
+        <div class="meta"><span class="rate">★ 4,8</span><span class="euro">≈ 18–30 €</span></div>
+        <p>Cuisine polonaise revisitée, élégante et maîtrisée, excellent rapport qualité-prix (menu dégustation). Le <b>tartare de bœuf</b> est réputé l'un des meilleurs de la ville.</p>
+        <div class="avoid">⚠️ Éviter le sandre (poisson). Le reste est simple.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1124632,17.0291031&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="tags"><span class="tag t-star">CHEF ÉTOILÉ</span><span class="tag t-safe">dans l'hôtel</span></div>
-        <h3>W15 — Wierzbowa 15 by Juanlu Fernández</h3>
-        <div class="fr">Cuisine européenne raffinée</div>
-        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 60–95 € (menu)</span></div>
-        <p>La table signature d'un chef andalou étoilé, <b>au sein même de ton hôtel Altus Palace</b>. Cuisine soignée, cadre feutré. Ultra pratique le soir de l'arrivée.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049686,17.0364123&travelmode=walking">🚶 M'y emmener</a></div>
+        <div class="tags"><span class="tag t-star">BIB GOURMAND</span></div>
+        <h3>BABA</h3>
+        <div class="fr">Polonais moderne raffiné (techniques françaises)</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 35–55 €</span></div>
+        <p>Cuisine polonaise réinventée avec finesse, menu court et créatif, service primé. Ambiance chic mais détendue.</p>
+        <div class="avoid">⚠️ Éviter les amuse-bouches à l'huître/fruits de mer — signale-le en réservant.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1127403,17.0318235&travelmode=walking">🚶 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <div class="tags"><span class="tag t-star">BIB GOURMAND</span><span class="tag t-view">VUE</span></div>
+        <h3>Restauracja Tarasowa</h3>
+        <div class="fr">« La Terrasse » · cuisine de saison, avec vue</div>
+        <div class="meta"><span class="rate">★ 4,2</span><span class="euro">≈ 20–35 €</span></div>
+        <p>Produits locaux et de saison, dressages soignés et jolie vue (près de la Halle du Centenaire). Steak et volaille très réussis.</p>
+        <div class="avoid">⚠️ Éviter le tartare de saumon.</div>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.107908,17.0779792&travelmode=transit">🚉 M'y emmener</a></div>
+      </div>
+
+      <div class="cat"><span>🍽️</span> Recommandés au guide Michelin</div>
+
+      <div class="card">
+        <div class="tags"><span class="tag t-star">GUIDE MICHELIN</span></div>
+        <h3>Restauracja MOST — Między Mostami</h3>
+        <div class="fr">« Entre les ponts » · polonais moderne raffiné</div>
+        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 80–130 € (menu dégustation)</span></div>
+        <p>La table la plus ambitieuse de la ville : menu dégustation créatif, service remarquable, cadre chic au bord de l'eau.</p>
+        <div class="avoid">⚠️ Menu imposé pouvant inclure poisson/huître — préviens des aversions à la réservation.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.114762,17.0311294&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
@@ -276,18 +328,8 @@
         <h3>Restauracja Acquario</h3>
         <div class="fr">Méditerranéen raffiné, au 6ᵉ étage</div>
         <div class="meta"><span class="rate">★ 4,1</span><span class="euro">≈ 16–30 € (plats)</span></div>
-        <p>Table élégante en hauteur, vue et couchers de soleil superbes, assiettes fines et belle carte des vins. Reconnu au guide Michelin.</p>
+        <p>Table élégante en hauteur (hôtel Monopol), vue et couchers de soleil superbes, assiettes fines et belle carte des vins.</p>
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1064103,17.0304856&travelmode=walking">🚶 M'y emmener</a></div>
-      </div>
-
-      <div class="card">
-        <div class="tags"><span class="tag t-star">HAUT DE GAMME</span></div>
-        <h3>The Cork</h3>
-        <div class="fr">Européen gastronomique</div>
-        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 35–47 € (3 plats)</span></div>
-        <p>Souvent citée comme la meilleure table de Wrocław : produits d'exception, service passionné, superbe cave. Viandes remarquables (pintade, bœuf).</p>
-        <div class="avoid">⚠️ Éviter l'entrée de poulpe/poisson. Le reste est parfait.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.11141,17.0319394&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
@@ -301,7 +343,7 @@
       </div>
 
       <div class="card">
-        <div class="tags"><span class="tag t-star">RAFFINÉ</span></div>
+        <div class="tags"><span class="tag t-star">GUIDE MICHELIN</span></div>
         <h3>Gustaw Restauracja</h3>
         <div class="fr">Cuisine créative — canard &amp; gibier</div>
         <div class="meta"><span class="rate">★ 4,4</span><span class="euro">≈ 16–26 € (plats)</span></div>
@@ -309,10 +351,8 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049061,17.0380525&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="cat"><span>🌉</span> Avec vue (rivière &amp; place)</div>
-
       <div class="card">
-        <div class="tags"><span class="tag t-view">VUE RIVIÈRE</span></div>
+        <div class="tags"><span class="tag t-star">GUIDE MICHELIN</span><span class="tag t-view">VUE RIVIÈRE</span></div>
         <h3>Restauracja La Maddalena</h3>
         <div class="fr">Italien raffiné, au bord de l'Oder</div>
         <div class="meta"><span class="rate">★ 4,5</span><span class="euro">≈ 14–26 € (plats)</span></div>
@@ -322,7 +362,7 @@
       </div>
 
       <div class="card">
-        <div class="tags"><span class="tag t-view">VUE RIVIÈRE</span></div>
+        <div class="tags"><span class="tag t-star">GUIDE MICHELIN</span><span class="tag t-view">VUE RIVIÈRE</span></div>
         <h3>Restauracja Przystań &amp; Marina</h3>
         <div class="fr">« Embarcadère &amp; Marina » · fine dining</div>
         <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 16–28 € (plats)</span></div>
@@ -330,6 +370,28 @@
         <div class="avoid">⚠️ Éviter poulpe/saumon — beau choix de viandes à côté.</div>
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1148322,17.0329798&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
+
+      <div class="cat"><span>🥂</span> Haut de gamme (hors guide)</div>
+
+      <div class="card">
+        <div class="tags"><span class="tag t-safe">dans l'hôtel</span></div>
+        <h3>W15 — Wierzbowa 15 by Juanlu Fernández</h3>
+        <div class="fr">Cuisine européenne raffinée</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 60–95 € (menu)</span></div>
+        <p>Table signature d'un chef andalou doublement étoilé en Espagne, <b>au sein même de ton hôtel Altus Palace</b>. Cuisine soignée, cadre feutré. Ultra pratique le soir de l'arrivée.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049686,17.0364123&travelmode=walking">🚶 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <h3>The Cork</h3>
+        <div class="fr">Européen gastronomique</div>
+        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 35–47 € (3 plats)</span></div>
+        <p>Souvent citée parmi les meilleures tables de Wrocław : produits d'exception, service passionné, superbe cave. Viandes remarquables (pintade, bœuf).</p>
+        <div class="avoid">⚠️ Éviter l'entrée de poulpe/poisson. Le reste est parfait.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.11141,17.0319394&travelmode=walking">🚶 M'y emmener</a></div>
+      </div>
+
+      <div class="cat"><span>🌉</span> Avec vue &amp; bistrots</div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE PLACE</span><span class="tag t-safe">bistro français</span></div>
@@ -397,7 +459,7 @@
         <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.0948639,17.0189203&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
 
-      <div class="cat"><span>🍝</span> Européen raffiné &amp; valeurs sûres</div>
+      <div class="cat"><span>🍝</span> Valeurs sûres</div>
 
       <div class="card">
         <div class="tags"><span class="tag t-safe">idéal maman</span></div>
@@ -447,25 +509,72 @@
       </div>
     </div>
 
-    <!-- ===== INFOS ===== -->
+    <!-- ===== PLATS TYPIQUES ===== -->
     <div class="pane" id="p2">
+      <h2 class="title">Plats typiques</h2>
+
+      <div class="cat"><span>🥣</span> Les soupes</div>
+      <div class="dish"><b>Barszcz</b> — bouillon de betteraves, souvent servi avec un <i>pasztecik</i> (friand à la viande). Son goût aigre-doux en déconcerte plus d'un, mais quand il est maison, il est souvent délicieux. Même si son nom ressemble, il est très différent du bortsch russe.</div>
+      <div class="dish"><b>Żurek</b> — soupe aigre à la farine de seigle, avec des morceaux de saucisse ou lardons et divers légumes. Les purs et durs la dégustent avec un œuf dur. On la sert souvent dans une miche de pain évidée.</div>
+      <div class="dish"><b>Grochówka</b> — soupe aux pois, bien épaisse, avec des lardons et des morceaux de viande épicée. Excellent en hiver pour se réchauffer.</div>
+      <div class="dish"><b>Flaki</b> — soupe aux tripes, roborative à souhait.</div>
+
+      <div class="cat"><span>🥗</span> Les hors-d'œuvre</div>
+      <div class="dish"><b>Tatar</b> — steak tartare, servi avec des cornichons salés, un œuf et un oignon tout finement haché. À vous de l'assaisonner selon votre goût. À éviter pendant la période estivale.</div>
+      <div class="dish"><b>Surówka</b> — chou rouge, chou blanc et carottes râpés.</div>
+      <div class="dish"><b>Śledź</b> — hareng, en général mariné, servi au choix dans de l'huile, avec de la crème fraîche, des oignons ou des tomates. On l'accompagne d'un petit verre de vodka bien glacée qui aiguise l'appétit. Les meilleurs <i>śledź</i> sont très tendres.</div>
+
+      <div class="cat"><span>🍽️</span> Les plats</div>
+      <div class="dish"><b>Pierogi</b> — formidables et économiques, ces grosses ravioles sont généralement fourrées aux pommes de terre et fromage blanc (<i>pierogi ruskie</i>) ou au chou (<i>pierogi z kapustą</i>) et/ou champignons, plus rarement à la viande. Existe aussi en version sucrée (myrtilles, fraises…). Les nouvelles <i>pierogarnie</i> jouent désormais la carte de l'inventivité et les déclinent à toutes les sauces. Ce délice de simplicité se prépare en version classique, à la vapeur, au four ou poêlée.</div>
+      <div class="dish"><b>Bigos</b> — la choucroute polonaise, à goûter absolument. Chou, viande, assortiment de charcuterie, haricots, champignons, tomates et pruneaux secs. Plus il a reposé, plus il est savoureux.</div>
+      <div class="dish"><b>Gołąbki</b> — entendez littéralement « tourtereaux ». Mais si cela en a (globalement) l'aspect, ce n'est pas du pigeon. Il s'agit de feuilles de chou garnies d'une farce faite de porc (parfois du bœuf), de riz et d'oignon.</div>
+      <div class="dish"><b>Kotlet schabowy</b> — côte de porc panée. C'est le plat de viande le plus populaire en Pologne.</div>
+      <div class="dish"><b>Karp</b> — carpe. 1 000 façons de la préparer, à la polonaise, à la juive, en gelée, toujours excellente.</div>
+      <div class="dish"><b>Golonko</b> — jambonneau mariné aux aromates ou à la bière, puis mijoté ou cuit au bouillon.</div>
+      <div class="dish"><b>Zraz zawijany</b> — viande de bœuf battue et roulée avec de la poitrine fumée et des cornichons salés à l'intérieur. Excellent, souvent servi avec du <i>kasza gryczana</i> (sarrasin).</div>
+
+      <div class="cat"><span>🍰</span> Les pâtisseries</div>
+      <div class="note">Les amateurs de pâtisserie viennoise vont être gâtés.</div>
+      <div class="dish"><b>Sernik</b> — gâteau au fromage blanc (du cheese-cake, quoi…).</div>
+      <div class="dish"><b>Kołacz</b> — c'est le nom d'une ville à 80 km de Varsovie, mais aussi une couronne de pâte farcie de douceurs (au choix, abricot, framboise, prune, fromage…). Elle trouve ses origines au XIIIᵉ siècle, où elle accompagnait les mariages. Une de ses déclinaisons est le <i>makowiec</i>, un gâteau roulé farci de fruits secs et pavot. Stupéfiant (on plaisante…).</div>
+      <div class="dish"><b>Jabłecznik</b> — petit cousin de la <i>szarlotka</i>, un gâteau aux pommes servi avec de la crème fraîche. La recette originelle est l'œuvre du mal nommé confiseur français Marie-Antoine Carême, qui créa cette douceur en l'honneur de la future impératrice Charlotte (<i>Szarlotka</i> en polonais) de Russie.</div>
+      <div class="dish"><b>Chrusty</b> — beignets de carnaval rappelant les bugnes lyonnaises. Plus gros, on les appelle <i>faworki</i>. Les beignets classiques (ronds) se nomment pour leur part <i>ponchki</i>.</div>
+    </div>
+
+    <!-- ===== INFOS ===== -->
+    <div class="pane" id="p3">
       <h2 class="title">Infos &amp; convertisseur</h2>
-      <p class="sub">Change instantané entre euros et złoty, et l'essentiel pour le séjour.</p>
 
       <div class="conv">
         <h3>💱 Convertisseur € ⇄ zł</h3>
         <div class="row"><label>€</label><input id="eur" type="number" inputmode="decimal" placeholder="Euros" /></div>
         <div class="row"><label>zł</label><input id="pln" type="number" inputmode="decimal" placeholder="Złoty" /></div>
-        <div class="rate-info">Taux indicatif : 1 € ≈ <span id="rateVal">4,30</span> zł · tape dans un champ, l'autre se met à jour.</div>
+        <div class="rate-info">Taux indicatif : 1 € ≈ 4,30 zł · tape dans un champ, l'autre se met à jour.</div>
       </div>
 
-      <div class="note">🛬 <b>Arrivée</b> mardi 10h15 · <b>départ</b> mercredi 19h30 (quitte le centre vers 17h). Aéroport ⇄ centre : <b>Bolt/Uber</b> (~9–14 €) ou <b>bus 106</b>.</div>
+      <div class="note">✈️ <b>Vols</b><br>
+        <b>Aller</b> — mardi 19 août : Beauvais <b>8h20</b> → Wrocław <b>10h15</b><br>
+        <b>Retour</b> — mercredi 20 août : Wrocław <b>19h30</b> → Beauvais <b>21h30</b><br>
+        (quitte le centre vers 17h pour l'aéroport)</div>
 
-      <div class="note">🚊 <b>Transports :</b> tickets de tram/bus à acheter directement à bord (borne à carte bancaire) ou via l'appli <b>Jakdojade</b>. Utile pour les lieux à l'est (Halle du Centenaire, jardin japonais) et Kolejkowo.</div>
+      <div class="note">🚕 <b>Aéroport ⇄ centre :</b> Bolt/Uber (~9–14 €) ou bus 106.</div>
 
-      <div class="note warn">🎟️ <b>À réserver à l'avance :</b> Panorama Racławicka (créneau imposé), Niewidzialny Dom (+ visite en anglais sur demande), et les tables gastronomiques (MOST, W15, The Cork, Przystań, Acquario).</div>
+      <div class="note">🚊 <b>Transports :</b> tickets de tram/bus à bord (borne à carte) ou via l'appli <b>Jakdojade</b>. Utile pour l'est (Halle du Centenaire, jardin japonais, zoo) et Kolejkowo.</div>
 
-      <div class="note">🧭 <b>Bagagerie :</b> l'hôtel garde tes valises après le check-out le mercredi, le temps de finir les visites avant l'aéroport.</div>
+      <div class="note warn">🎟️ <b>À réserver à l'avance :</b> Panorama Racławicka (créneau imposé), Niewidzialny Dom (+ anglais sur demande), et les tables du guide (MOST, Acquario, Przystań, IDA, BABA…).</div>
+
+      <div class="cat"><span>🗣️</span> Quelques mots de polonais</div>
+      <div class="phrases">
+        <div class="ph"><div class="fr2">Bonjour (poli)</div><div class="pl">Dzień dobry</div><div class="fo">djinn DO-brih</div></div>
+        <div class="ph"><div class="fr2">Salut / Coucou (familier)</div><div class="pl">Cześć</div><div class="fo">tchechtch</div></div>
+        <div class="ph"><div class="fr2">Merci</div><div class="pl">Dziękuję</div><div class="fo">djin-KOU-yè</div></div>
+        <div class="ph"><div class="fr2">S'il vous plaît / Je vous en prie</div><div class="pl">Proszę</div><div class="fo">PRO-ché</div></div>
+        <div class="ph"><div class="fr2">Oui / Non</div><div class="pl">Tak / Nie</div><div class="fo">tak / gnè</div></div>
+        <div class="ph"><div class="fr2">Pardon / Excusez-moi</div><div class="pl">Przepraszam</div><div class="fo">pché-PRA-cham</div></div>
+        <div class="ph"><div class="fr2">Au revoir</div><div class="pl">Do widzenia</div><div class="fo">do vi-DZÉ-nia</div></div>
+        <div class="ph"><div class="fr2">L'addition, s'il vous plaît</div><div class="pl">Poproszę rachunek</div><div class="fo">po-PRO-ché ra-HOU-nek</div></div>
+        <div class="ph"><div class="fr2">Santé ! (à table)</div><div class="pl">Na zdrowie</div><div class="fo">na ZDRO-vié</div></div>
+      </div>
     </div>
 
   </div>
@@ -473,19 +582,21 @@
   <nav class="bottomnav" id="nav">
     <button class="navbtn active" data-i="0"><span class="ic">🗺️</span><span class="lb">Visites</span></button>
     <button class="navbtn" data-i="1"><span class="ic">🍽️</span><span class="lb">Restos</span></button>
-    <button class="navbtn" data-i="2"><span class="ic">💱</span><span class="lb">Infos</span></button>
+    <button class="navbtn" data-i="2"><span class="ic">🥟</span><span class="lb">Plats</span></button>
+    <button class="navbtn" data-i="3"><span class="ic">💱</span><span class="lb">Infos</span></button>
   </nav>
 </div>
 
 <script>
   const vp=document.getElementById('viewport');
   const btns=[...document.querySelectorAll('.navbtn')];
+  const N=btns.length-1;
   let cur=0;
   function goTo(i){vp.scrollTo({left:i*vp.clientWidth,behavior:'smooth'})}
   function setActive(i){if(i===cur)return;cur=i;btns.forEach((b,k)=>b.classList.toggle('active',k===i))}
   btns.forEach(b=>b.addEventListener('click',()=>goTo(+b.dataset.i)));
   let ticking=false;
-  vp.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const i=Math.round(vp.scrollLeft/vp.clientWidth);setActive(Math.max(0,Math.min(2,i)));ticking=false})});
+  vp.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const i=Math.round(vp.scrollLeft/vp.clientWidth);setActive(Math.max(0,Math.min(N,i)));ticking=false})});
   window.addEventListener('resize',()=>vp.scrollTo({left:cur*vp.clientWidth}));
 
   // convertisseur
@@ -493,6 +604,29 @@
   const eur=document.getElementById('eur'), pln=document.getElementById('pln');
   eur.addEventListener('input',()=>{pln.value=eur.value!==''?(parseFloat(eur.value)*RATE).toFixed(2):''});
   pln.addEventListener('input',()=>{eur.value=pln.value!==''?(parseFloat(pln.value)/RATE).toFixed(2):''});
+
+  // système "activité faite" (sauvegardé dans le navigateur)
+  (function(){
+    const KEY='wro_done_v1';
+    let done={};
+    try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){done={}}
+    document.querySelectorAll('#p0 .card').forEach((card,idx)=>{
+      const id='act-'+idx;
+      const head=card.querySelector('.head');
+      const btn=document.createElement('button');
+      btn.className='check';
+      head.appendChild(btn);
+      const set=(v)=>{card.classList.toggle('done',v);btn.classList.toggle('on',v);btn.textContent=v?'✓ Fait':'À faire';};
+      set(!!done[id]);
+      btn.addEventListener('click',(e)=>{
+        e.preventDefault();e.stopPropagation();
+        const v=!card.classList.contains('done');
+        set(v);
+        if(v)done[id]=1;else delete done[id];
+        try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}
+      });
+    });
+  })();
 </script>
 </body>
 </html>
