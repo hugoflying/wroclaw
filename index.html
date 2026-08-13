@@ -812,20 +812,27 @@
   const wc=c=>WC[c]||['🌡️','—'];
   const DAYS=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
   function loadWeather(){
-    const url='https://api.open-meteo.com/v1/forecast?latitude=51.11&longitude=17.03&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FWarsaw&forecast_days=14';
+    const url='https://api.open-meteo.com/v1/forecast?latitude=51.11&longitude=17.03&hourly=temperature_2m,weather_code,precipitation_probability&timezone=Europe%2FWarsaw&start_date=2026-08-19&end_date=2026-08-20';
     fetch(url).then(r=>r.json()).then(d=>{
       const cont=document.getElementById('wcontent');
-      const cw=wc(d.current.weather_code);
-      let days='';
-      const t=d.daily.time;
-      for(let i=0;i<t.length && i<10;i++){
-        const dt=new Date(t[i]+'T00:00');
-        const w=wc(d.daily.weather_code[i]);
-        const trip=(t[i]==='2026-08-19'||t[i]==='2026-08-20');
-        const lbl=trip?(t[i]==='2026-08-19'?'19/8':'20/8'):DAYS[dt.getDay()];
-        days+='<div class="wday'+(trip?' trip':'')+'"><div class="wd">'+lbl+'</div><div class="wde">'+w[0]+'</div><div class="wtemp">'+Math.round(d.daily.temperature_2m_max[i])+'° <span class="mn">'+Math.round(d.daily.temperature_2m_min[i])+'°</span></div></div>';
-      }
-      cont.innerHTML='<div class="wnow"><span class="we">'+cw[0]+'</span><span class="wt">'+Math.round(d.current.temperature_2m)+'°C</span><span class="wl">'+cw[1]+'<br>maintenant</span></div><div class="wdays">'+days+'</div><div class="wmeta">Actualisé à '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+' · les jours de ton voyage sont encadrés.</div>';
+      if(!d.hourly||!d.hourly.time||!d.hourly.time.length){cont.innerHTML='<div class="wmeta">Prévision pas encore disponible pour ces dates (trop loin). Réessaie plus près du départ.</div>';return;}
+      const T=d.hourly.time,TE=d.hourly.temperature_2m,CO=d.hourly.weather_code,PR=d.hourly.precipitation_probability;
+      const periods=[['Matin',6,12],['Après-midi',12,18],['Soirée',18,24]];
+      const days=[['2026-08-19','Mardi 19 août'],['2026-08-20','Mercredi 20 août']];
+      function agg(date,h0,h1){let ts=[],cs=[],ps=[];for(let i=0;i<T.length;i++){if(T[i].slice(0,10)===date){const h=+T[i].slice(11,13);if(h>=h0&&h<h1){ts.push(TE[i]);cs.push(CO[i]);if(PR&&PR[i]!=null)ps.push(PR[i]);}}}if(!ts.length)return null;const avg=Math.round(ts.reduce((a,b)=>a+b,0)/ts.length);const code=Math.max.apply(null,cs);const maxp=ps.length?Math.max.apply(null,ps):null;return{t:avg,code:code,p:maxp};}
+      let html='';
+      days.forEach(dd=>{
+        html+='<div class="wcard"><div class="wdate">'+dd[1]+'</div>';
+        periods.forEach(p=>{
+          const a=agg(dd[0],p[1],p[2]);
+          if(!a){html+='<div class="wp"><span class="wpl">'+p[0]+'</span><span class="wpe">—</span></div>';return;}
+          const w=wc(a.code);
+          html+='<div class="wp"><span class="wpl">'+p[0]+'</span><span class="wpe">'+w[0]+'</span><span class="wpt">'+a.t+'°</span><span class="wpd">'+w[1]+'</span>'+(a.p!=null?'<span class="wpp">💧 '+a.p+'%</span>':'')+'</div>';
+        });
+        html+='</div>';
+      });
+      html+='<div class="wmeta">💧 = probabilité de pluie · actualisé à '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+' · susceptible d\'évoluer d\'ici le voyage.</div>';
+      cont.innerHTML=html;
     }).catch(()=>{document.getElementById('wcontent').innerHTML='<div class="wmeta">Météo indisponible (hors ligne ?). Réessaie avec une connexion.</div>';});
   }
   loadWeather();
