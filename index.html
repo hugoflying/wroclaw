@@ -15,292 +15,348 @@
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
   .app{display:flex;flex-direction:column;height:100dvh}
 
-  .topbar{flex:0 0 auto;background:linear-gradient(135deg,#c0451f,#c68a2e);color:#fff;padding:14px 18px 12px;box-shadow:0 2px 10px rgba(120,60,20,.18);z-index:5}
-  .topbar .kicker{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.9}
-  .topbar h1{margin:2px 0 0;font-size:20px;font-weight:700}
-  .topbar .dates{font-size:11.5px;opacity:.92;margin-top:2px}
-
   .viewport{flex:1 1 auto;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .viewport::-webkit-scrollbar{display:none}
-  .pane{flex:0 0 100%;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start;-webkit-overflow-scrolling:touch;padding:16px 14px calc(var(--nav-h) + 20px)}
+  .pane{flex:0 0 100%;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start;-webkit-overflow-scrolling:touch;padding:18px 14px calc(var(--nav-h) + 20px)}
   .pane::-webkit-scrollbar{display:none}
 
-  h2.day{font-size:18px;margin:6px 4px 2px}
+  h2.title{font-size:19px;margin:2px 4px 2px}
   .sub{font-size:13px;color:var(--muted);margin:0 4px 14px}
-  .divider{height:1px;background:var(--line);margin:22px 4px 18px;border:0}
-  .cat{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin:20px 4px 10px;display:flex;align-items:center;gap:7px}
+  .cat{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin:22px 4px 10px;display:flex;align-items:center;gap:7px}
   .cat span{font-size:15px}
 
-  .note{background:#eaf4f0;border:1px solid #cfe6dd;border-radius:14px;padding:12px 14px;font-size:13px;color:#2c5a4f;margin-bottom:16px}
+  .note{background:#eaf4f0;border:1px solid #cfe6dd;border-radius:14px;padding:12px 14px;font-size:13px;color:#2c5a4f;margin-bottom:14px}
   .note.warn{background:#fbf1e0;border-color:#eecfa0;color:#7a5a24}
 
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(70,50,20,.06)}
-  .card .head{display:flex;align-items:center;gap:10px}
-  .num{flex:0 0 28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .card .head{display:flex;align-items:flex-start;gap:10px}
+  .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;margin-top:2px}
   .card h3{margin:0;font-size:15.5px;line-height:1.25}
-  .meta{font-size:11.5px;color:var(--gold);font-weight:600;margin-top:3px}
-  .price{color:var(--accent2);font-weight:700}
+  .fr{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .meta{font-size:12px;margin-top:5px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .rate{color:var(--accent2);font-weight:700}
+  .euro{color:var(--gold);font-weight:700}
+  .free{color:#1f6f5c;font-weight:700}
   .card p{margin:9px 0 0;font-size:13.5px;color:#3f382e;line-height:1.5}
   .tip{background:#fbf4e6;border-left:3px solid var(--gold);border-radius:6px;padding:7px 9px;font-size:12.5px;color:#5a4d33;margin-top:9px}
   .avoid{font-size:12.5px;color:#a23a1f;margin-top:7px}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
   .tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px}
   .t-star{background:#f6e2b8;color:#8a6416}
   .t-view{background:#d7e8f5;color:#245a86}
   .t-safe{background:#dcefe4;color:#1f6f5c}
-  .rate{color:var(--accent2);font-weight:700}
 
-  .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
-  a.btn{text-decoration:none;font-size:12px;font-weight:600;padding:9px 12px;border-radius:10px;display:inline-flex;align-items:center;gap:5px}
+  .btns{margin-top:11px}
+  a.btn{text-decoration:none;font-size:12.5px;font-weight:600;padding:10px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:6px}
   a.walk{background:var(--accent2);color:#fff}
   a.tram{background:#2b6fb0;color:#fff}
-  a.pin{background:#efe8d9;color:#5a4d33}
   a.btn:active{transform:scale(.97)}
+
+  .conv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:16px}
+  .conv h3{margin:0 0 12px;font-size:15px}
+  .conv .row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .conv label{flex:0 0 34px;font-weight:700;font-size:15px;color:var(--accent)}
+  .conv input{flex:1;font-size:17px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbf8f2;font-family:inherit;width:100%}
+  .conv input:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+  .conv .rate-info{font-size:11.5px;color:var(--muted);margin-top:2px}
 
   .bottomnav{flex:0 0 auto;height:var(--nav-h);background:#fff;border-top:1px solid var(--line);display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;box-shadow:0 -3px 14px rgba(70,50,20,.08);padding-bottom:env(safe-area-inset-bottom)}
   .navbtn{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--muted);font-family:inherit;padding:6px 0}
-  .navbtn .ic{font-size:19px;line-height:1}
-  .navbtn .lb{font-size:10.5px;font-weight:600}
+  .navbtn .ic{font-size:20px;line-height:1}
+  .navbtn .lb{font-size:11px;font-weight:600}
   .navbtn.active{color:var(--accent)}
-  .navbtn::after{content:"";height:3px;width:22px;border-radius:3px;background:transparent;margin-top:2px}
+  .navbtn::after{content:"";height:3px;width:24px;border-radius:3px;background:transparent;margin-top:3px}
   .navbtn.active::after{background:var(--accent)}
-  .hint{text-align:center;font-size:11px;color:var(--muted);margin:2px 0 4px}
+  .hint{text-align:center;font-size:11px;color:var(--muted);margin:0 0 10px}
 </style>
 </head>
 <body>
 <div class="app">
 
-  <div class="topbar">
-    <div class="kicker">Wrocław · mère &amp; fils</div>
-    <h1 id="topTitle">Jour 1</h1>
-    <div class="dates">✈️ 19 août 10h15 → 20 août 19h30 · Hotel Altus Palace</div>
-  </div>
-
   <div class="viewport" id="viewport">
 
-    <!-- ===== JOUR 1 ===== -->
+    <!-- ===== VISITES ===== -->
     <div class="pane" id="p0">
-      <div class="hint">← glissez pour changer d'onglet →</div>
-      <div class="note">🛬 <b>Arrivée 10h15.</b> Centre en <b>Bolt/Uber</b> (~15 min, 40–60 zł) ou <b>bus 106</b>. Dépose des valises à l'hôtel, puis tout le circuit se fait à pied.</div>
-      <h2 class="day">Mardi 19 août · après-midi &amp; soirée</h2>
-      <p class="sub">Boucle dans la vieille ville, fin sur l'île de la cathédrale au coucher du soleil. Cherchez les <b>krasnale</b> (nains en bronze) partout !</p>
+      <h2 class="title">Wrocław — à voir</h2>
+      <p class="sub">Toutes les activités classées par proximité, du sud-ouest de la vieille ville vers l'est. Piochez librement. Le bouton ouvre l'itinéraire <b>depuis votre position</b>. Cherchez les <b>krasnale</b> (nains en bronze) en chemin !</p>
 
       <div class="card">
-        <div class="head"><div class="num">1</div><div><h3>Rynek &amp; Hôtel de Ville gothique</h3><div class="meta">La plus belle place de Pologne</div></div></div>
-        <p>Immense place médiévale aux maisons colorées, avec l'un des plus beaux hôtels de ville gothiques d'Europe en son centre.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1106992,17.0323662&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1106992,17.0323662">📍</a></div>
+        <div class="head"><div class="num">1</div><div>
+          <h3>Muzeum Miejskie — Pałac Królewski</h3>
+          <div class="fr">Musée de la Ville — Palais royal</div>
+          <div class="meta"><span class="rate">★ 4,6</span><span class="euro">Plein tarif ≈ 7 € /pers.</span></div>
+        </div></div>
+        <p>Beau palais retraçant l'histoire de la ville, avec un agréable jardin pour se poser.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1074369,17.0288706&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">☕</div><div><h3>Déjeuner (le midi)</h3><div class="meta">une seule adresse suggérée</div></div></div>
-        <p><b>Le Baromètre</b> — bistro français sur la place, terrasse avec vue sur l'hôtel de ville. Parfait à l'arrivée. (Toutes les autres adresses sont dans l'onglet Restos.)</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.110669,17.0331892&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.110669,17.0331892">📍</a></div>
+        <div class="head"><div class="num">2</div><div>
+          <h3>Plac Solny</h3>
+          <div class="fr">La place du Sel</div>
+          <div class="meta"><span class="free">Gratuit</span></div>
+        </div></div>
+        <p>Charmante placette collée au Rynek, marché aux fleurs ouvert jour et nuit.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1092,17.0286&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">2</div><div><h3>Plac Solny (place du Sel)</h3><div class="meta">Marché aux fleurs · à 1 min</div></div></div>
-        <p>Charmante placette collée au Rynek, fleurs de jour comme de nuit. Jolie pause photo.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1092,17.0286&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1092,17.0286">📍</a></div>
+        <div class="head"><div class="num">3</div><div>
+          <h3>Rynek &amp; Ratusz</h3>
+          <div class="fr">La Grand-Place &amp; l'Hôtel de Ville gothique</div>
+          <div class="meta"><span class="free">Gratuit</span></div>
+        </div></div>
+        <p>Immense place médiévale aux maisons colorées, l'une des plus belles d'Europe, avec en son centre un superbe hôtel de ville gothique.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1106992,17.0323662&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">3</div><div><h3>Pont des Pénitents</h3><div class="meta">Point de vue · ⭐ 4,7</div></div></div>
-        <p>Passerelle entre les tours de l'église Sainte-Marie-Madeleine (45 m) : meilleur panorama sur les toits rouges. ~130 marches raides.</p>
-        <div class="tip">💡 Pas d'ascenseur — à voir selon la forme de ta maman. La vue depuis le sol de l'église suffit déjà.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1096497,17.0346578&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1096497,17.0346578">📍</a></div>
+        <div class="head"><div class="num">4</div><div>
+          <h3>Aula Leopoldina</h3>
+          <div class="fr">La grande salle baroque de l'université</div>
+          <div class="meta"><span class="rate">★ 4,8</span><span class="euro">Plein tarif ≈ 5,50 € /pers.</span></div>
+        </div></div>
+        <p>L'une des plus belles salles baroques d'Europe : dorures, fresques et stucs éblouissants. Le billet donne aussi accès à d'autres salles et à une vue depuis la tour.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.113741,17.0333581&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">4</div><div><h3>Hala Targowa</h3><div class="meta">Halle du marché · 1908</div></div></div>
-        <p>Halle en béton armé à l'architecture spectaculaire : fruits, fleurs, pâtisseries. Bon arrêt vers la cathédrale.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1128,17.0398&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1128,17.0398">📍</a></div>
+        <div class="head"><div class="num">5</div><div>
+          <h3>Rejs po Odrze</h3>
+          <div class="fr">Croisière sur l'Oder</div>
+          <div class="meta"><span class="euro">Plein tarif ≈ 13 € /pers.</span></div>
+        </div></div>
+        <p>Balade en bateau pour découvrir la ville et l'île de la cathédrale depuis l'eau. Embarcadères près de l'université.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.114832,17.032930&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">5</div><div><h3>Most Tumski &amp; Ostrów Tumski</h3><div class="meta">Île de la cathédrale · ⭐ 4,8</div></div></div>
-        <p>Quartier le plus ancien et romantique : pont des cadenas, ruelles pavées, cathédrale. À faire en fin de journée.</p>
-        <div class="tip">🕯️ Coucher de soleil ~20h : un <b>allumeur de réverbères en costume</b> allume les lampes à gaz à la main. Arrive 15 min avant.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1147014,17.0423269&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1147014,17.0423269">📍</a></div>
-      </div>
-    </div>
-
-    <!-- ===== JOUR 2 ===== -->
-    <div class="pane" id="p1">
-      <div class="hint">← glissez pour changer d'onglet →</div>
-      <div class="note warn">🛫 <b>Départ 19h30.</b> Quitte le centre vers <b>17h</b> (Bolt ~15 min). Visite le matin après le check-out (bagagerie à l'hôtel). <b>Deux formules — pas les deux.</b></div>
-
-      <h2 class="day">Formule A · Art &amp; Histoire</h2>
-      <p class="sub">La plus reposante : tout à 5–7 min à pied de l'hôtel.</p>
-
-      <div class="card">
-        <div class="head"><div class="num">1</div><div><h3>Panorama Racławicka</h3><div class="meta">⭐ 4,8 · l'attraction n°1</div></div></div>
-        <p>Toile panoramique géante (114 × 15 m) à 360° dans une rotonde, audioguide en français. ~45 min.</p>
-        <div class="tip">🎟️ <b>Réserve en ligne à l'avance</b> (créneau imposé). Prends tôt le matin.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1103046,17.0449743&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1103046,17.0449743">📍</a></div>
+        <div class="head"><div class="num">6</div><div>
+          <h3>Most Pokutnic — Kościół św. Marii Magdaleny</h3>
+          <div class="fr">Le pont des Pénitents — église Sainte-Marie-Madeleine</div>
+          <div class="meta"><span class="rate">★ 4,7</span><span class="euro">Plein tarif ≈ 4 € /pers.</span></div>
+        </div></div>
+        <p>Passerelle suspendue entre les deux tours de l'église, à 45 m : le meilleur panorama sur les toits rouges de la vieille ville.</p>
+        <div class="tip">💡 Escalier étroit et raide, sans ascenseur — à voir selon la forme de ta maman.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1096497,17.0346578&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">2</div><div><h3>Musée de la Ville (Palais Royal)</h3><div class="meta">⭐ 4,6 · ouvert mercredi ✔</div></div></div>
-        <p>Beau palais retraçant l'histoire de la ville, jardin agréable pour se poser.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1074369,17.0288706&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1074369,17.0288706">📍</a></div>
+        <div class="head"><div class="num">7</div><div>
+          <h3>Niewidzialny Dom</h3>
+          <div class="fr">La Maison invisible (visite dans le noir total)</div>
+          <div class="meta"><span class="rate">★ 4,9</span><span class="euro">Plein tarif ≈ 9 € /pers.</span></div>
+        </div></div>
+        <p>Expérience sensorielle guidée dans l'obscurité complète, par une personne malvoyante : on découvre le monde par l'ouïe, l'odorat et le toucher. Bouleversant et unique.</p>
+        <div class="tip">💡 Réservation obligatoire, et visite en anglais uniquement sur demande préalable (par téléphone/mail).</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1096493,17.0357988&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">☕</div><div><h3>Déjeuner (le midi)</h3><div class="meta">une seule adresse suggérée</div></div></div>
-        <p><b>Acquario</b> — rooftop élégant (6ᵉ étage), cuisine méditerranéenne raffinée et jolie vue. Idéal pour un dernier repas soigné avant l'aéroport. (Le reste dans l'onglet Restos.)</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1064103,17.0304856&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1064103,17.0304856">📍</a></div>
-      </div>
-
-      <hr class="divider">
-      <h2 class="day">Formule B · Parc &amp; fontaine</h2>
-      <p class="sub">Plus verte, à ~25 min en tram. Idéale s'il fait beau.</p>
-
-      <div class="card">
-        <div class="head"><div class="num">1</div><div><h3>Halle du Centenaire + Jardin japonais</h3><div class="meta">UNESCO · parc Szczytnicki</div></div></div>
-        <p>Immense dôme en béton (UNESCO), pergola, grand parc et ravissant jardin japonais. Bol d'air.</p>
-        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1087669,17.0789491&travelmode=transit">🚉 Itinéraire tram</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1087669,17.0789491">📍</a></div>
+        <div class="head"><div class="num">8</div><div>
+          <h3>Hala Targowa</h3>
+          <div class="fr">La halle du marché (1908)</div>
+          <div class="meta"><span class="free">Gratuit</span></div>
+        </div></div>
+        <p>Halle en béton armé à l'architecture spectaculaire : fruits, fleurs, pâtisseries. Bon arrêt pour grignoter.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1128,17.0398&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">2</div><div><h3>Fontaine multimédia</h3><div class="meta">⭐ 4,7 · à côté de la Halle</div></div></div>
-        <p>Grande fontaine, spectacles d'eau en musique toutes les heures. Spectaculaire la nuit.</p>
-        <div class="btns"><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1087669,17.0789491">📍 Voir</a></div>
-      </div>
-    </div>
-
-    <!-- ===== OPTIONS ===== -->
-    <div class="pane" id="p2">
-      <div class="hint">← glissez pour changer d'onglet →</div>
-      <h2 class="day">À piocher selon l'envie</h2>
-      <p class="sub">Idées en plus pour remplacer une visite. Vous ne ferez pas tout, et c'est parfait !</p>
-
-      <div class="card">
-        <div class="head"><div class="num">✦</div><div><h3>Hydropolis</h3><div class="meta">⭐ 4,5 · musée de l'eau</div></div></div>
-        <p>Musée moderne et interactif dédié à l'eau, dans une ancienne citerne. Très bien conçu. ~2 h.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.103524,17.0572038&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.103524,17.0572038">📍</a></div>
+        <div class="head"><div class="num">9</div><div>
+          <h3>Muzeum Iluzji</h3>
+          <div class="fr">Le musée des Illusions</div>
+          <div class="meta"><span class="rate">★ 4,5</span><span class="euro">Plein tarif ≈ 13 € /pers.</span></div>
+        </div></div>
+        <p>Musée interactif d'illusions d'optique sur l'île de Sable : miroirs déformants, pièces truquées, jeux de perspective. Amusant et malin, très photogénique.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1153227,17.0398388&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">✦</div><div><h3>Kolejkowo</h3><div class="meta">⭐ 4,8 · ville miniature</div></div></div>
-        <p>Superbe maquette géante avec trains, voitures, cycles jour/nuit et météo simulée. Bluffant.</p>
-        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.0945455,17.0196003&travelmode=transit">🚉 Itinéraire tram</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.0945455,17.0196003">📍</a></div>
+        <div class="head"><div class="num">10</div><div>
+          <h3>Most Tumski &amp; Ostrów Tumski</h3>
+          <div class="fr">Le pont de la cathédrale &amp; l'île de la cathédrale</div>
+          <div class="meta"><span class="free">Gratuit</span></div>
+        </div></div>
+        <p>Le quartier le plus ancien et romantique : pont couvert de cadenas, ruelles pavées, cathédrale. Superbe au coucher du soleil.</p>
+        <div class="tip">🕯️ À la tombée de la nuit, un allumeur de réverbères en costume allume les lampes à gaz à la main.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1147014,17.0423269&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">✦</div><div><h3>Croisière sur l'Oder</h3><div class="meta">bateau · 45 min–1 h</div></div></div>
-        <p>Tour sur la rivière pour voir la ville et l'île de la cathédrale depuis l'eau. Reposant.</p>
-        <div class="btns"><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=rejsy+statkiem+Wroc%C5%82aw+Przystan">📍 Embarcadères</a></div>
+        <div class="head"><div class="num">11</div><div>
+          <h3>Panorama Racławicka</h3>
+          <div class="fr">La Panorama de Racławice</div>
+          <div class="meta"><span class="rate">★ 4,8</span><span class="euro">Plein tarif ≈ 12 € /pers.</span></div>
+        </div></div>
+        <p>Toile panoramique géante (114 × 15 m) présentée à 360° dans une rotonde, avec audioguide en français. L'attraction n°1 de la ville.</p>
+        <div class="tip">🎟️ Billet à réserver en ligne à l'avance (créneau horaire imposé). Il donne aussi accès au Musée national pendant 3 mois.</div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1103046,17.0449743&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
-        <div class="head"><div class="num">✦</div><div><h3>Aula Leopoldina</h3><div class="meta">salle baroque · université</div></div></div>
-        <p>L'une des plus belles salles baroques d'Europe, dorures et fresques éblouissantes, près du marché.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1141,17.0335&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1141,17.0335">📍</a></div>
+        <div class="head"><div class="num">12</div><div>
+          <h3>Hydropolis</h3>
+          <div class="fr">Musée de l'eau immersif</div>
+          <div class="meta"><span class="rate">★ 4,5</span><span class="euro">Plein tarif ≈ 10,50 € /pers.</span></div>
+        </div></div>
+        <p>Musée moderne et interactif entièrement dédié à l'eau (océans, vie marine, technologie), dans une ancienne citerne. Très bien conçu.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.103524,17.0572038&travelmode=walking">🚶 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="num">13</div><div>
+          <h3>Fontanna Multimedialna</h3>
+          <div class="fr">La fontaine multimédia</div>
+          <div class="meta"><span class="rate">★ 4,7</span><span class="free">Gratuit</span></div>
+        </div></div>
+        <p>Grande fontaine avec spectacles d'eau synchronisés en musique. Sympa en journée, spectaculaire à la nuit tombée. À côté de la Halle du Centenaire.</p>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1087669,17.0789491&travelmode=transit">🚉 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="num">14</div><div>
+          <h3>Ogród Japoński</h3>
+          <div class="fr">Le jardin japonais</div>
+          <div class="meta"><span class="rate">★ 4,5</span><span class="euro">Plein tarif ≈ 4 € /pers.</span></div>
+        </div></div>
+        <p>Ravissant jardin japonais avec ponts, bassins et carpes, dans le grand parc Szczytnicki. Idéal pour une balade paisible.</p>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1096604,17.0790447&travelmode=transit">🚉 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="num">15</div><div>
+          <h3>Hala Stulecia</h3>
+          <div class="fr">La Halle du Centenaire (UNESCO)</div>
+          <div class="meta"><span class="rate">★ 4,7</span><span class="euro">Plein tarif ≈ 4 € /pers.</span></div>
+        </div></div>
+        <p>Immense dôme en béton armé du début du XXᵉ siècle, classé au patrimoine mondial de l'UNESCO, entouré d'une pergola et d'un parc.</p>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1069534,17.0773287&travelmode=transit">🚉 M'y emmener</a></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="num">16</div><div>
+          <h3>Kolejkowo</h3>
+          <div class="fr">La ville miniature &amp; trains</div>
+          <div class="meta"><span class="rate">★ 4,8</span><span class="euro">Plein tarif ≈ 10 € /pers.</span></div>
+        </div></div>
+        <p>Superbe maquette géante avec trains, voitures qui roulent, cycles jour/nuit et météo simulée. Bluffant de détails. Au sud, vers Sky Tower.</p>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.0945455,17.0196003&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
     </div>
 
     <!-- ===== RESTOS ===== -->
-    <div class="pane" id="p3">
-      <div class="hint">← glissez pour changer d'onglet →</div>
-      <h2 class="day">Restos · européen classique &amp; raffiné</h2>
-      <p class="sub">~20 adresses classées. Tarifs indicatifs par personne (plat ou menu, hors boissons). ⚠️ = plats à éviter vu les goûts de ta maman (fruits de mer, chou).</p>
+    <div class="pane" id="p1">
+      <h2 class="title">Restos — européen classique &amp; raffiné</h2>
+      <p class="sub">Notes = avis Google. Tarifs par personne (plat ou menu, hors boissons). ⚠️ = plats à éviter vu les goûts de ta maman (fruits de mer, chou).</p>
 
       <div class="cat"><span>⭐</span> Gastronomique &amp; guide Michelin</div>
 
       <div class="card">
         <div class="tags"><span class="tag t-star">★ MICHELIN</span></div>
         <h3>Restauracja MOST — Między Mostami</h3>
-        <div class="meta"><span class="rate">⭐ 4,7</span> · polonais moderne raffiné · <span class="price">€€€€ · menu dégustation ~350–550 zł</span></div>
+        <div class="fr">« Entre les ponts » · polonais moderne raffiné</div>
+        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 80–130 € (menu dégustation)</span></div>
         <p>La table étoilée de la ville : menu dégustation créatif, service remarquable, cadre chic au bord de l'eau. L'expérience gastronomique du séjour.</p>
         <div class="avoid">⚠️ Menu imposé pouvant inclure poisson/huître — préviens des aversions à la réservation.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.114762,17.0311294&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.114762,17.0311294">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.114762,17.0311294&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-star">CHEF ÉTOILÉ</span><span class="tag t-safe">dans l'hôtel</span></div>
-        <h3>W15 — by Juanlu Fernández</h3>
-        <div class="meta"><span class="rate">⭐ 4,6</span> · cuisine européenne raffinée · <span class="price">€€€€ · menu ~250–400 zł</span></div>
+        <h3>W15 — Wierzbowa 15 by Juanlu Fernández</h3>
+        <div class="fr">Cuisine européenne raffinée</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 60–95 € (menu)</span></div>
         <p>La table signature d'un chef andalou étoilé, <b>au sein même de ton hôtel Altus Palace</b>. Cuisine soignée, cadre feutré. Ultra pratique le soir de l'arrivée.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049686,17.0364123&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1049686,17.0364123">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049686,17.0364123&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-star">GUIDE MICHELIN</span><span class="tag t-view">VUE ROOFTOP</span></div>
-        <h3>Acquario</h3>
-        <div class="meta"><span class="rate">⭐ 4,1</span> · méditerranéen raffiné · <span class="price">€€€ · plats ~70–130 zł</span></div>
-        <p>Table élégante au 6ᵉ étage, vue et couchers de soleil superbes, assiettes fines et belle carte des vins. Reconnu au guide Michelin.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1064103,17.0304856&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1064103,17.0304856">📍</a></div>
+        <h3>Restauracja Acquario</h3>
+        <div class="fr">Méditerranéen raffiné, au 6ᵉ étage</div>
+        <div class="meta"><span class="rate">★ 4,1</span><span class="euro">≈ 16–30 € (plats)</span></div>
+        <p>Table élégante en hauteur, vue et couchers de soleil superbes, assiettes fines et belle carte des vins. Reconnu au guide Michelin.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1064103,17.0304856&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-star">HAUT DE GAMME</span></div>
         <h3>The Cork</h3>
-        <div class="meta"><span class="rate">⭐ 4,7</span> · européen gastronomique · <span class="price">€€€ · ~150–200 zł (3 plats)</span></div>
+        <div class="fr">Européen gastronomique</div>
+        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 35–47 € (3 plats)</span></div>
         <p>Souvent citée comme la meilleure table de Wrocław : produits d'exception, service passionné, superbe cave. Viandes remarquables (pintade, bœuf).</p>
         <div class="avoid">⚠️ Éviter l'entrée de poulpe/poisson. Le reste est parfait.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.11141,17.0319394&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.11141,17.0319394">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.11141,17.0319394&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-star">GUIDE MICHELIN</span><span class="tag t-safe">idéal maman</span></div>
         <h3>Campo Modern Grill</h3>
-        <div class="meta"><span class="rate">⭐ 4,6</span> · steakhouse · <span class="price">€€€ · steaks ~90–160 zł</span></div>
-        <p>Belles viandes grillées au charbon, cadre cosy et chic, sommelier. Valeur sûre sans poisson ni chou.</p>
+        <div class="fr">Steakhouse — grillades au charbon</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 21–37 € (steaks)</span></div>
+        <p>Belles viandes grillées, cadre cosy et chic, sommelier. Valeur sûre sans poisson ni chou.</p>
         <div class="avoid">⚠️ Éviter les calamars en entrée.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1076478,17.0427782&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1076478,17.0427782">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1076478,17.0427782&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-star">RAFFINÉ</span></div>
-        <h3>Gustaw</h3>
-        <div class="meta"><span class="rate">⭐ 4,4</span> · cuisine créative · <span class="price">€€€ · plats ~70–110 zł</span></div>
+        <h3>Gustaw Restauracja</h3>
+        <div class="fr">Cuisine créative — canard &amp; gibier</div>
+        <div class="meta"><span class="rate">★ 4,4</span><span class="euro">≈ 16–26 € (plats)</span></div>
         <p>Petite table pointue et créative, canard et gibier remarquables, dressages soignés. Ambiance intime.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049061,17.0380525&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1049061,17.0380525">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1049061,17.0380525&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="cat"><span>🌉</span> Avec vue (rivière &amp; place)</div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE RIVIÈRE</span></div>
-        <h3>La Maddalena</h3>
-        <div class="meta"><span class="rate">⭐ 4,5</span> · italien raffiné · <span class="price">€€€ · plats ~60–110 zł</span></div>
-        <p>Au bord de l'Oder, terrasse et berges illuminées le soir : très romantique. Canard et agneau réputés.</p>
+        <h3>Restauracja La Maddalena</h3>
+        <div class="fr">Italien raffiné, au bord de l'Oder</div>
+        <div class="meta"><span class="rate">★ 4,5</span><span class="euro">≈ 14–26 € (plats)</span></div>
+        <p>Terrasse et berges illuminées le soir : très romantique. Canard et agneau réputés.</p>
         <div class="avoid">⚠️ Carte variée — oriente-toi viandes/pâtes plutôt que poisson.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1143103,17.0314381&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1143103,17.0314381">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1143103,17.0314381&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE RIVIÈRE</span></div>
-        <h3>Przystań &amp; Marina</h3>
-        <div class="meta"><span class="rate">⭐ 4,6</span> · fine dining · <span class="price">€€€ · plats ~70–120 zł</span></div>
-        <p>Sur l'eau, face à l'université : cadre magnifique le soir, dressages artistiques, service pro. Belle adresse pour un dîner d'exception.</p>
+        <h3>Restauracja Przystań &amp; Marina</h3>
+        <div class="fr">« Embarcadère &amp; Marina » · fine dining</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 16–28 € (plats)</span></div>
+        <p>Sur l'eau, face à l'université : cadre magnifique le soir, dressages artistiques, service pro.</p>
         <div class="avoid">⚠️ Éviter poulpe/saumon — beau choix de viandes à côté.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1148322,17.0329798&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1148322,17.0329798">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1148322,17.0329798&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE PLACE</span><span class="tag t-safe">bistro français</span></div>
         <h3>Le Baromètre</h3>
-        <div class="meta"><span class="rate">⭐ 4,7</span> · bistro français · <span class="price">€€ · plats ~45–70 zł</span></div>
-        <p>Ambiance et musique françaises, terrasse sur le Rynek face à l'hôtel de ville. Cadre classique et chaleureux, parfait le midi.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.110669,17.0331892&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.110669,17.0331892">📍</a></div>
+        <div class="fr">Bistro français, sur le Rynek</div>
+        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 11–16 € (plats)</span></div>
+        <p>Ambiance et musique françaises, terrasse sur la place face à l'hôtel de ville. Cadre classique et chaleureux.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.110669,17.0331892&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE PLACE</span></div>
         <h3>Restauracja Rynek 26</h3>
-        <div class="meta"><span class="rate">⭐ 4,6</span> · européen · <span class="price">€€ · plats ~50–80 zł</span></div>
+        <div class="fr">« Grand-Place 26 » · européen</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 12–19 € (plats)</span></div>
         <p>Tables avec vue directe sur l'hôtel de ville, cuisine soignée, grosses portions. Canard et foie de volaille poêlé.</p>
         <div class="avoid">⚠️ Éviter les plats au chou (bigos, choucroute).</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1090146,17.0324464&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1090146,17.0324464">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1090146,17.0324464&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE PLACE</span></div>
         <h3>Breakfast Stary Młyn</h3>
-        <div class="meta"><span class="rate">⭐ 4,8</span> · petit-déj / brunch · <span class="price">€€ · ~35–55 zł</span></div>
-        <p>Superbe vue sur le marché, cadre charmant, excellent pour un brunch soigné avant de commencer la journée.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.109215,17.0331021&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.109215,17.0331021">📍</a></div>
+        <div class="fr">« Le Vieux Moulin » · petit-déj / brunch</div>
+        <div class="meta"><span class="rate">★ 4,8</span><span class="euro">≈ 8–13 €</span></div>
+        <p>Superbe vue sur le marché, cadre charmant, excellent pour un brunch soigné.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.109215,17.0331021&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="cat"><span>🍸</span> Rooftops · un verre avec vue</div>
@@ -308,33 +364,37 @@
       <div class="card">
         <div class="tags"><span class="tag t-view">ROOFTOP</span></div>
         <h3>Wdech / Wydech Rooftop</h3>
-        <div class="meta"><span class="rate">⭐ 4,3</span> · bar panoramique · <span class="price">€€ · cocktails ~30–45 zł</span></div>
-        <p>Toit végétalisé avec vue sur la confluence de l'Oder, murs de verre, ambiance détendue. Idéal pour l'apéro avant le dîner.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1161551,17.039087&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1161551,17.039087">📍</a></div>
+        <div class="fr">« Inspire / Expire » · bar panoramique</div>
+        <div class="meta"><span class="rate">★ 4,3</span><span class="euro">≈ 7–10 € (cocktails)</span></div>
+        <p>Toit végétalisé avec vue sur la confluence de l'Oder, murs de verre, ambiance détendue.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1161551,17.039087&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">ROOFTOP</span></div>
         <h3>dACH! Dominikańska</h3>
-        <div class="meta"><span class="rate">⭐ 4,4</span> · bar sur les toits · <span class="price">€€ · cocktails ~30–45 zł</span></div>
-        <p>Sur le toit d'une galerie, vue sur la vieille ville, très agréable à l'heure dorée. Transats et cocktails.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1083788,17.0404281&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1083788,17.0404281">📍</a></div>
+        <div class="fr">« Le Toit » · bar sur les toits</div>
+        <div class="meta"><span class="rate">★ 4,4</span><span class="euro">≈ 7–10 € (cocktails)</span></div>
+        <p>Sur le toit d'une galerie, vue sur la vieille ville, très agréable à l'heure dorée.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1083788,17.0404281&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">ROOFTOP</span></div>
         <h3>The Bridge Sky Bar</h3>
-        <div class="meta"><span class="rate">⭐ 3,8</span> · bar en hauteur · <span class="price">€€€ · cocktails ~50–60 zł</span></div>
-        <p>Vue splendide sur la cathédrale et les toits, superbe au coucher du soleil. Ouvert mer.–sam. seulement, pas de réservation.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1137237,17.0480787&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1137237,17.0480787">📍</a></div>
+        <div class="fr">Bar en hauteur, vue cathédrale</div>
+        <div class="meta"><span class="rate">★ 3,8</span><span class="euro">≈ 12–14 € (cocktails)</span></div>
+        <p>Vue splendide sur la cathédrale et les toits, superbe au coucher du soleil. Pas de réservation.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1137237,17.0480787&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">VUE EN HAUTEUR</span></div>
-        <h3>Skybar (Sky Tower)</h3>
-        <div class="meta"><span class="rate">⭐ 3,8</span> · bar panoramique · <span class="price">€€€ · entrée + conso</span></div>
+        <h3>Skybar — Sky Tower</h3>
+        <div class="fr">Bar panoramique au sommet de la ville</div>
+        <div class="meta"><span class="rate">★ 3,8</span><span class="euro">≈ 12 € + conso</span></div>
         <p>Tout en haut de la plus haute tour de la ville : la vue la plus large sur Wrocław. Pour le panorama plus que pour la carte.</p>
-        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.0948639,17.0189203&travelmode=transit">🚉 Itinéraire</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.0948639,17.0189203">📍</a></div>
+        <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.0948639,17.0189203&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
 
       <div class="cat"><span>🍝</span> Européen raffiné &amp; valeurs sûres</div>
@@ -342,70 +402,97 @@
       <div class="card">
         <div class="tags"><span class="tag t-safe">idéal maman</span></div>
         <h3>Emily. Italian Stories</h3>
-        <div class="meta"><span class="rate">⭐ 4,7</span> · italien · <span class="price">€€ · ~40–65 zł</span></div>
-        <p>Pizzas et pâtes fraîches, service aux petits soins. Le choix qui plaît à tout le monde.</p>
+        <div class="fr">Italien — pizzas &amp; pâtes fraîches</div>
+        <div class="meta"><span class="rate">★ 4,7</span><span class="euro">≈ 9–15 €</span></div>
+        <p>Le choix qui plaît à tout le monde, service aux petits soins.</p>
         <div class="avoid">⚠️ Éviter les pâtes aux fruits de mer.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1110832,17.0347949&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1110832,17.0347949">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1110832,17.0347949&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">SUR LE RYNEK</span></div>
         <h3>Enigma RestoBar</h3>
-        <div class="meta"><span class="rate">⭐ 4,6</span> · italien · <span class="price">€€ · pâtes ~45–70 zł</span></div>
+        <div class="fr">Italien — pâtes réputées</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 11–16 €</span></div>
         <p>Sur la place, pâtes parmi les meilleures de Pologne, ambiance soignée. Portions généreuses.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1094594,17.0309854&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1094594,17.0309854">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1094594,17.0309854&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-safe">bar à vin</span></div>
-        <h3>Veeno</h3>
-        <div class="meta"><span class="rate">⭐ 4,8</span> · italien / vins · <span class="price">€€ · ~40–70 zł</span></div>
-        <p>Bar à vin italien chaleureux, planches, pâtes et pizzas, service très soigné. Belle huile d'olive maison.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1101774,17.0283359&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1101774,17.0283359">📍</a></div>
+        <h3>Veeno Wrocław</h3>
+        <div class="fr">Bar à vin italien</div>
+        <div class="meta"><span class="rate">★ 4,8</span><span class="euro">≈ 9–16 €</span></div>
+        <p>Chaleureux, planches, pâtes et pizzas, service très soigné. Belle huile d'olive maison.</p>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1101774,17.0283359&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-safe">meilleure pizza</span></div>
         <h3>Olio Pizza Napoletana</h3>
-        <div class="meta"><span class="rate">⭐ 4,8</span> · napolitaine · <span class="price">€€ · ~40–60 zł</span></div>
+        <div class="fr">Pizza napolitaine</div>
+        <div class="meta"><span class="rate">★ 4,8</span><span class="euro">≈ 9–14 €</span></div>
         <p>Souvent citée comme la meilleure pizza de la ville, pâte fine authentique. Zéro risque pour un palais difficile.</p>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1095741,17.0367925&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1095741,17.0367925">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1095741,17.0367925&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
       <div class="card">
         <div class="tags"><span class="tag t-view">SUR LE RYNEK</span></div>
         <h3>Drevný Kocúr</h3>
-        <div class="meta"><span class="rate">⭐ 4,6</span> · européen / tchèque · <span class="price">€€ · ~45–75 zł</span></div>
-        <p>Adresse cosy en plein centre, cuisine d'Europe centrale, bonnes viandes et bière fraîche. Ambiance rustique-chic.</p>
+        <div class="fr">« Le Vieux Matou » · européen / tchèque</div>
+        <div class="meta"><span class="rate">★ 4,6</span><span class="euro">≈ 11–17 €</span></div>
+        <p>Adresse cosy en plein centre, cuisine d'Europe centrale, bonnes viandes et bière fraîche.</p>
         <div class="avoid">⚠️ Éviter les garnitures de chou.</div>
-        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1095247,17.0305159&travelmode=walking">🚶 M'y emmener</a><a class="btn pin" href="https://www.google.com/maps/search/?api=1&query=51.1095247,17.0305159">📍</a></div>
+        <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1095247,17.0305159&travelmode=walking">🚶 M'y emmener</a></div>
+      </div>
+    </div>
+
+    <!-- ===== INFOS ===== -->
+    <div class="pane" id="p2">
+      <h2 class="title">Infos &amp; convertisseur</h2>
+      <p class="sub">Change instantané entre euros et złoty, et l'essentiel pour le séjour.</p>
+
+      <div class="conv">
+        <h3>💱 Convertisseur € ⇄ zł</h3>
+        <div class="row"><label>€</label><input id="eur" type="number" inputmode="decimal" placeholder="Euros" /></div>
+        <div class="row"><label>zł</label><input id="pln" type="number" inputmode="decimal" placeholder="Złoty" /></div>
+        <div class="rate-info">Taux indicatif : 1 € ≈ <span id="rateVal">4,30</span> zł · tape dans un champ, l'autre se met à jour.</div>
       </div>
 
-      <div class="note warn">💡 <b>Réserve</b> les tables gastronomiques (MOST, W15, The Cork, Przystań, Acquario) à l'avance. Tarifs en złoty : 1 € ≈ 4,3 zł.</div>
+      <div class="note">🛬 <b>Arrivée</b> mardi 10h15 · <b>départ</b> mercredi 19h30 (quitte le centre vers 17h). Aéroport ⇄ centre : <b>Bolt/Uber</b> (~9–14 €) ou <b>bus 106</b>.</div>
+
+      <div class="note">🚊 <b>Transports :</b> tickets de tram/bus à acheter directement à bord (borne à carte bancaire) ou via l'appli <b>Jakdojade</b>. Utile pour les lieux à l'est (Halle du Centenaire, jardin japonais) et Kolejkowo.</div>
+
+      <div class="note warn">🎟️ <b>À réserver à l'avance :</b> Panorama Racławicka (créneau imposé), Niewidzialny Dom (+ visite en anglais sur demande), et les tables gastronomiques (MOST, W15, The Cork, Przystań, Acquario).</div>
+
+      <div class="note">🧭 <b>Bagagerie :</b> l'hôtel garde tes valises après le check-out le mercredi, le temps de finir les visites avant l'aéroport.</div>
     </div>
 
   </div>
 
   <nav class="bottomnav" id="nav">
-    <button class="navbtn active" data-i="0"><span class="ic">🗺️</span><span class="lb">Jour 1</span></button>
-    <button class="navbtn" data-i="1"><span class="ic">🌳</span><span class="lb">Jour 2</span></button>
-    <button class="navbtn" data-i="2"><span class="ic">✨</span><span class="lb">Options</span></button>
-    <button class="navbtn" data-i="3"><span class="ic">🍽️</span><span class="lb">Restos</span></button>
+    <button class="navbtn active" data-i="0"><span class="ic">🗺️</span><span class="lb">Visites</span></button>
+    <button class="navbtn" data-i="1"><span class="ic">🍽️</span><span class="lb">Restos</span></button>
+    <button class="navbtn" data-i="2"><span class="ic">💱</span><span class="lb">Infos</span></button>
   </nav>
 </div>
 
 <script>
   const vp=document.getElementById('viewport');
   const btns=[...document.querySelectorAll('.navbtn')];
-  const titles=['Jour 1','Jour 2','Options','Restos'];
-  const topTitle=document.getElementById('topTitle');
   let cur=0;
   function goTo(i){vp.scrollTo({left:i*vp.clientWidth,behavior:'smooth'})}
-  function setActive(i){if(i===cur)return;cur=i;btns.forEach((b,k)=>b.classList.toggle('active',k===i));topTitle.textContent=titles[i]}
+  function setActive(i){if(i===cur)return;cur=i;btns.forEach((b,k)=>b.classList.toggle('active',k===i))}
   btns.forEach(b=>b.addEventListener('click',()=>goTo(+b.dataset.i)));
   let ticking=false;
-  vp.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const i=Math.round(vp.scrollLeft/vp.clientWidth);setActive(Math.max(0,Math.min(3,i)));ticking=false})});
+  vp.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const i=Math.round(vp.scrollLeft/vp.clientWidth);setActive(Math.max(0,Math.min(2,i)));ticking=false})});
   window.addEventListener('resize',()=>vp.scrollTo({left:cur*vp.clientWidth}));
+
+  // convertisseur
+  const RATE=4.30;
+  const eur=document.getElementById('eur'), pln=document.getElementById('pln');
+  eur.addEventListener('input',()=>{pln.value=eur.value!==''?(parseFloat(eur.value)*RATE).toFixed(2):''});
+  pln.addEventListener('input',()=>{eur.value=pln.value!==''?(parseFloat(pln.value)/RATE).toFixed(2):''});
 </script>
 </body>
 </html>
