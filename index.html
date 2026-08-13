@@ -4,23 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Wrocław</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
   :root{
     --bg:#faf6ef; --card:#ffffff; --ink:#22201c; --muted:#7c7264;
     --accent:#c0451f; --accent2:#1f6f5c; --gold:#c68a2e; --line:#ece3d3;
     --nav-h:64px;
   }
+  body.dark{
+    --bg:#17140f; --card:#221d17; --ink:#f0e9df; --muted:#a99e8d;
+    --accent:#e0693f; --accent2:#4bb69a; --gold:#e0a94a; --line:#38312a;
+  }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;height:100%;overflow:hidden}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
   .app{display:flex;flex-direction:column;height:100dvh}
 
-  .banner{flex:0 0 auto;background:linear-gradient(135deg,#c0451f,#c68a2e);color:#fff;text-align:center;padding:9px 12px;font-weight:800;font-size:15px;letter-spacing:5px;box-shadow:0 2px 8px rgba(120,60,20,.2);z-index:6}
+  .banner{flex:0 0 auto;background:linear-gradient(135deg,#c0451f,#c68a2e);color:#fff;text-align:center;padding:8px 12px 7px;box-shadow:0 2px 8px rgba(120,60,20,.2);z-index:6}
+  .banner .btitle{font-weight:800;font-size:15px;letter-spacing:5px}
+  .banner .bstat{font-size:11.5px;margin-top:3px;opacity:.96;display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+  .banner .bstat b{font-weight:800}
+  .banner .reset{background:rgba(255,255,255,.2);border:0;color:#fff;font-family:inherit;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;cursor:pointer}
 
   .viewport{flex:1 1 auto;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .viewport::-webkit-scrollbar{display:none}
   .pane{flex:0 0 100%;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start;-webkit-overflow-scrolling:touch;padding:18px 14px calc(var(--nav-h) + 20px)}
   .pane::-webkit-scrollbar{display:none}
+  .pane#p3{padding:14px 14px calc(var(--nav-h) + 10px)}
 
   h2.title{font-size:19px;margin:2px 4px 16px}
   .cat{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin:22px 4px 10px;display:flex;align-items:center;gap:7px}
@@ -28,6 +38,8 @@
 
   .note{background:#eaf4f0;border:1px solid #cfe6dd;border-radius:14px;padding:12px 14px;font-size:13px;color:#2c5a4f;margin-bottom:14px}
   .note.warn{background:#fbf1e0;border-color:#eecfa0;color:#7a5a24}
+  body.dark .note{background:#16211d;border-color:#274b42;color:#9fd8c6}
+  body.dark .note.warn{background:#241d10;border-color:#5a4a20;color:#e0c07a}
 
   .flights{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
   .flights .ttl{font-size:14px;font-weight:800;margin-bottom:8px}
@@ -43,23 +55,26 @@
   .fl-line span{padding:0 6px}
   .fl-note{font-size:12px;color:var(--muted);margin-top:10px}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(70,50,20,.06)}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(70,50,20,.06)}
   .card .head{display:flex;align-items:flex-start;gap:10px}
   .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;margin-top:2px}
-  .card h3{margin:0;font-size:15.5px;line-height:1.25}
+  .card h3{margin:0;font-size:15.5px;line-height:1.25;padding-right:34px}
   .fr{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px}
   .meta{font-size:12px;margin-top:5px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .rate{color:var(--accent2);font-weight:700}
   .euro{color:var(--gold);font-weight:700}
-  .free{color:#1f6f5c;font-weight:700}
-  .card p{margin:9px 0 0;font-size:13.5px;color:#3f382e;line-height:1.5}
+  .free{color:var(--accent2);font-weight:700}
+  .card p{margin:9px 0 0;font-size:13.5px;color:var(--ink);opacity:.9;line-height:1.5}
   .tip{background:#fbf4e6;border-left:3px solid var(--gold);border-radius:6px;padding:7px 9px;font-size:12.5px;color:#5a4d33;margin-top:9px}
+  body.dark .tip{background:#241d10;color:#e0c07a}
   .avoid{font-size:12.5px;color:#a23a1f;margin-top:7px}
+  body.dark .avoid{color:#e88a6a}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
   .tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px}
   .t-star{background:#f6e2b8;color:#8a6416}
   .t-view{background:#d7e8f5;color:#245a86}
   .t-safe{background:#dcefe4;color:#1f6f5c}
+  .card.hotel{border:1.5px solid var(--accent);background:var(--card)}
 
   .btns{margin-top:11px}
   a.btn{text-decoration:none;font-size:12.5px;font-weight:600;padding:10px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:6px}
@@ -70,43 +85,81 @@
 
   .card.done{opacity:.42}
   .card.done h3,.card.done .fr{text-decoration:line-through}
-  .check{margin-left:auto;align-self:flex-start;flex:0 0 auto;border:1.5px solid var(--accent);background:#fff;color:var(--accent);font-family:inherit;font-weight:700;font-size:11px;padding:6px 10px;border-radius:20px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .actbtns{margin-left:auto;display:flex;gap:6px;flex:0 0 auto}
+  .check{border:1.5px solid var(--accent);background:var(--card);color:var(--accent);font-family:inherit;font-weight:700;font-size:11px;padding:6px 10px;border-radius:20px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
   .check.on{background:var(--accent2);border-color:var(--accent2);color:#fff}
-  .check:active{transform:scale(.95)}
+  .check:active,.fav:active{transform:scale(.95)}
+  .fav{border:1.5px solid var(--gold);background:var(--card);color:var(--gold);border-radius:50%;width:30px;height:30px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;flex:0 0 auto}
+  .fav.on{background:var(--gold);color:#fff}
+  .fav-abs{position:absolute;top:12px;right:12px}
 
-  .dish{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;font-size:13.5px;line-height:1.5;color:#3f382e}
+  .dish{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;font-size:13.5px;line-height:1.5;color:var(--ink)}
   .dish b{color:var(--accent)}
 
-  .card.hotel{border:1.5px solid var(--accent);background:#fdf3ee}
-
-  .conv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:16px}
+  .conv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
   .conv h3{margin:0 0 12px;font-size:15px}
   .conv .row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .conv label{flex:0 0 34px;font-weight:700;font-size:15px;color:var(--accent)}
-  .conv input{flex:1;font-size:17px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbf8f2;font-family:inherit;width:100%}
+  .conv input{flex:1;font-size:17px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:inherit;width:100%}
   .conv input:focus{outline:2px solid var(--gold);border-color:var(--gold)}
   .conv .rate-info{font-size:11.5px;color:var(--muted);margin-top:2px}
 
-  .phrases{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 14px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
-  .ph{padding:10px 0;border-bottom:1px solid var(--line)}
+  .weather{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
+  .weather h3{margin:0 0 4px;font-size:15px}
+  .wnow{display:flex;align-items:center;gap:12px;margin:6px 0 4px}
+  .wnow .wt{font-size:30px;font-weight:800}
+  .wnow .we{font-size:34px;line-height:1}
+  .wnow .wl{font-size:12.5px;color:var(--muted)}
+  .wdays{display:flex;gap:8px;overflow-x:auto;margin-top:8px;padding-bottom:2px}
+  .wday{flex:0 0 auto;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:64px}
+  .wday.trip{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+  .wday .wd{font-size:11px;font-weight:700;color:var(--muted)}
+  .wday .wde{font-size:22px;margin:2px 0}
+  .wday .wtemp{font-size:12px;font-weight:700}
+  .wday .wtemp .mn{color:var(--muted);font-weight:600}
+  .wmeta{font-size:11px;color:var(--muted);margin-top:8px}
+
+  .phrases{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 14px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
+  .ph{padding:10px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
   .ph:last-child{border-bottom:0}
+  .ph .txt{flex:1}
   .ph .fr2{font-size:12.5px;color:var(--muted)}
   .ph .pl{font-size:15px;font-weight:700;margin-top:1px}
   .ph .fo{font-size:12.5px;color:var(--accent2);font-style:italic}
+  .speak{flex:0 0 auto;border:1.5px solid var(--accent);background:var(--card);color:var(--accent);border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .speak:active{transform:scale(.92)}
 
-  .bottomnav{flex:0 0 auto;height:var(--nav-h);background:#fff;border-top:1px solid var(--line);display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;box-shadow:0 -3px 14px rgba(70,50,20,.08);padding-bottom:env(safe-area-inset-bottom)}
+  .toggle{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:14px;font-size:14px;font-weight:600}
+  .sw{width:48px;height:28px;border-radius:20px;background:var(--line);position:relative;transition:.2s;border:0;cursor:pointer;flex:0 0 auto}
+  .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+  .sw.on{background:var(--accent2)}
+  .sw.on::after{left:23px}
+
+  #map{width:100%;height:calc(100dvh - var(--nav-h) - 118px);border-radius:14px;border:1px solid var(--line)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin:10px 2px 0;color:var(--muted)}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  .leaflet-popup-content{font-family:inherit;font-size:13px}
+  .leaflet-popup-content a{color:var(--accent2);font-weight:700}
+
+  .bottomnav{flex:0 0 auto;height:var(--nav-h);background:var(--card);border-top:1px solid var(--line);display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;box-shadow:0 -3px 14px rgba(70,50,20,.08);padding-bottom:env(safe-area-inset-bottom)}
   .navbtn{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--muted);font-family:inherit;padding:6px 0}
-  .navbtn .ic{font-size:20px;line-height:1}
-  .navbtn .lb{font-size:10.5px;font-weight:600}
+  .navbtn svg{width:22px;height:22px}
+  .navbtn .lb{font-size:10px;font-weight:600}
   .navbtn.active{color:var(--accent)}
-  .navbtn::after{content:"";height:3px;width:24px;border-radius:3px;background:transparent;margin-top:3px}
+  .navbtn::after{content:"";height:3px;width:22px;border-radius:3px;background:transparent;margin-top:3px}
   .navbtn.active::after{background:var(--accent)}
 </style>
 </head>
 <body>
 <div class="app">
 
-  <div class="banner">WROCŁAW</div>
+  <div class="banner">
+    <div class="btitle">WROCŁAW</div>
+    <div class="bstat">
+      <span id="prog">0/17 visités</span>
+      <button class="reset" id="reset">réinit.</button>
+    </div>
+  </div>
 
   <div class="viewport" id="viewport">
 
@@ -114,7 +167,9 @@
     <div class="pane" id="p0">
       <h2 class="title">Activités et visites</h2>
 
-      <div class="card">
+      <div class="note">🧙 Partout dans la ville, repérez les <b>krasnale</b> : plus de 800 petits nains en bronze cachés sur les trottoirs, façades et lampadaires. Les plus connus près du Rynek : <i>Papa Krasnal</i>, les pompiers <i>Śpioch</i> &amp; <i>Tłuścioch</i>, et <i>Więzień</i> derrière ses barreaux. Un vrai jeu de piste !</div>
+
+      <div class="card" data-eur="7">
         <div class="head"><div class="num">1</div><div>
           <h3>Muzeum Miejskie — Pałac Królewski</h3>
           <div class="fr">Musée de la Ville — Palais royal</div>
@@ -124,7 +179,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1074369,17.0288706&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="0">
         <div class="head"><div class="num">2</div><div>
           <h3>Plac Solny</h3>
           <div class="fr">La place du Sel</div>
@@ -134,7 +189,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1092,17.0286&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="0">
         <div class="head"><div class="num">3</div><div>
           <h3>Rynek &amp; Ratusz</h3>
           <div class="fr">La Grand-Place &amp; l'Hôtel de Ville gothique</div>
@@ -144,7 +199,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1106992,17.0323662&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="5.5">
         <div class="head"><div class="num">4</div><div>
           <h3>Aula Leopoldina</h3>
           <div class="fr">La grande salle baroque de l'université</div>
@@ -154,7 +209,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.113741,17.0333581&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="13">
         <div class="head"><div class="num">5</div><div>
           <h3>Rejs po Odrze</h3>
           <div class="fr">Croisière sur l'Oder</div>
@@ -164,7 +219,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.114832,17.032930&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="4">
         <div class="head"><div class="num">6</div><div>
           <h3>Most Pokutnic — Kościół św. Marii Magdaleny</h3>
           <div class="fr">Le pont des Pénitents — église Sainte-Marie-Madeleine</div>
@@ -175,7 +230,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1096497,17.0346578&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="9">
         <div class="head"><div class="num">7</div><div>
           <h3>Niewidzialny Dom</h3>
           <div class="fr">La Maison invisible (visite dans le noir total)</div>
@@ -186,7 +241,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1096493,17.0357988&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="0">
         <div class="head"><div class="num">8</div><div>
           <h3>Hala Targowa</h3>
           <div class="fr">La halle du marché (1908)</div>
@@ -196,7 +251,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1128,17.0398&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="13">
         <div class="head"><div class="num">9</div><div>
           <h3>Muzeum Iluzji</h3>
           <div class="fr">Le musée des Illusions</div>
@@ -206,7 +261,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1153227,17.0398388&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="0">
         <div class="head"><div class="num">10</div><div>
           <h3>Most Tumski &amp; Ostrów Tumski</h3>
           <div class="fr">Le pont de la cathédrale &amp; l'île de la cathédrale</div>
@@ -217,7 +272,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1147014,17.0423269&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="12">
         <div class="head"><div class="num">11</div><div>
           <h3>Panorama Racławicka</h3>
           <div class="fr">La Panorama de Racławice</div>
@@ -228,7 +283,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.1103046,17.0449743&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="10.5">
         <div class="head"><div class="num">12</div><div>
           <h3>Hydropolis</h3>
           <div class="fr">Musée de l'eau immersif</div>
@@ -238,7 +293,7 @@
         <div class="btns"><a class="btn walk" href="https://www.google.com/maps/dir/?api=1&destination=51.103524,17.0572038&travelmode=walking">🚶 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="0">
         <div class="head"><div class="num">13</div><div>
           <h3>Fontanna Multimedialna</h3>
           <div class="fr">La fontaine multimédia</div>
@@ -248,7 +303,7 @@
         <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1087669,17.0789491&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="4">
         <div class="head"><div class="num">14</div><div>
           <h3>Ogród Japoński</h3>
           <div class="fr">Le jardin japonais</div>
@@ -258,7 +313,7 @@
         <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1096604,17.0790447&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="4">
         <div class="head"><div class="num">15</div><div>
           <h3>Hala Stulecia</h3>
           <div class="fr">La Halle du Centenaire (UNESCO)</div>
@@ -268,7 +323,7 @@
         <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1069534,17.0773287&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="16">
         <div class="head"><div class="num">16</div><div>
           <h3>Zoo Wrocław &amp; Afrykarium</h3>
           <div class="fr">Le zoo &amp; l'Afrykarium (aquarium africain)</div>
@@ -279,7 +334,7 @@
         <div class="btns"><a class="btn tram" href="https://www.google.com/maps/dir/?api=1&destination=51.1056261,17.0762488&travelmode=transit">🚉 M'y emmener</a></div>
       </div>
 
-      <div class="card">
+      <div class="card" data-eur="10">
         <div class="head"><div class="num">17</div><div>
           <h3>Kolejkowo</h3>
           <div class="fr">La ville miniature &amp; trains</div>
@@ -566,9 +621,26 @@
       <div class="dish"><b>Chrusty</b> — beignets de carnaval rappelant les bugnes lyonnaises. Plus gros, on les appelle <i>faworki</i>. Les beignets classiques (ronds) se nomment pour leur part <i>ponchki</i>.</div>
     </div>
 
-    <!-- ===== INFOS ===== -->
+    <!-- ===== CARTE ===== -->
     <div class="pane" id="p3">
+      <h2 class="title" style="margin-bottom:10px">Carte</h2>
+      <div id="map"></div>
+      <div class="legend">
+        <span><i style="background:#c0451f"></i>Visites</span>
+        <span><i style="background:#c68a2e"></i>Restos</span>
+        <span><i style="background:#1f6f5c"></i>Hôtel</span>
+        <span><i style="background:#1e73e8"></i>Ma position</span>
+      </div>
+    </div>
+
+    <!-- ===== INFOS ===== -->
+    <div class="pane" id="p4">
       <h2 class="title">Infos &amp; convertisseur</h2>
+
+      <div class="weather" id="weather">
+        <h3>🌤️ Météo à Wrocław</h3>
+        <div id="wcontent"><div class="wmeta">Chargement de la météo en direct…</div></div>
+      </div>
 
       <div class="conv">
         <h3>💱 Convertisseur € ⇄ zł</h3>
@@ -599,78 +671,209 @@
       </div>
 
       <div class="note">🚕 <b>Aéroport ⇄ centre :</b> Bolt/Uber (~9–14 €) ou bus 106.</div>
-
       <div class="note">🚊 <b>Transports :</b> tickets de tram/bus à bord (borne à carte) ou via l'appli <b>Jakdojade</b>. Utile pour l'est (Halle du Centenaire, jardin japonais, zoo) et Kolejkowo.</div>
-
       <div class="note warn">🎟️ <b>À réserver à l'avance :</b> Panorama Racławicka (créneau imposé), Niewidzialny Dom (+ anglais sur demande), et les tables du guide (MOST, Acquario, Przystań, IDA, BABA…).</div>
 
+      <div class="cat"><span>🚨</span> Urgences &amp; taxi</div>
+      <div class="note">🚨 <b>Numéro d'urgence : 112</b> (police, pompiers, SAMU — opérateurs anglophones).</div>
+      <div class="note">🏨 <b>Adresse hôtel (à montrer au chauffeur) :</b><br>Hotel Altus Palace, ul. Wierzbowa 15, 50-056 Wrocław<br>☎ +48 71 747 50 00</div>
+      <div class="note">🚕 <b>Taxi / VTC :</b> Bolt, Free Now ou Uber (moins cher et plus simple que la borne). <b>Pourboire :</b> ~10 % au restaurant si le service n'est pas inclus ; on arrondit pour les taxis.</div>
+
       <div class="cat"><span>🗣️</span> Quelques mots de polonais</div>
-      <div class="phrases">
-        <div class="ph"><div class="fr2">Bonjour (poli)</div><div class="pl">Dzień dobry</div><div class="fo">djinn DO-brih</div></div>
-        <div class="ph"><div class="fr2">Salut / Coucou (familier)</div><div class="pl">Cześć</div><div class="fo">tchechtch</div></div>
-        <div class="ph"><div class="fr2">Merci</div><div class="pl">Dziękuję</div><div class="fo">djin-KOU-yè</div></div>
-        <div class="ph"><div class="fr2">S'il vous plaît / De rien / Je vous en prie</div><div class="pl">Proszę</div><div class="fo">PRO-ché</div></div>
-        <div class="ph"><div class="fr2">Oui / Non</div><div class="pl">Tak / Nie</div><div class="fo">tak / gnè</div></div>
-        <div class="ph"><div class="fr2">Pardon / Excusez-moi</div><div class="pl">Przepraszam</div><div class="fo">pché-PRA-cham</div></div>
-        <div class="ph"><div class="fr2">Au revoir</div><div class="pl">Do widzenia</div><div class="fo">do vi-DZÉ-nia</div></div>
-        <div class="ph"><div class="fr2">L'addition, s'il vous plaît</div><div class="pl">Poproszę rachunek</div><div class="fo">po-PRO-ché ra-HOU-nek</div></div>
-        <div class="ph"><div class="fr2">Merci beaucoup</div><div class="pl">Dziękuję bardzo</div><div class="fo">djin-KOU-yè BAR-dzo</div></div>
-        <div class="ph"><div class="fr2">De rien / Pas de problème</div><div class="pl">Nie ma za co</div><div class="fo">gnè ma za tso</div></div>
-        <div class="ph"><div class="fr2">Bon appétit</div><div class="pl">Smacznego</div><div class="fo">smatch-NÉ-go</div></div>
-        <div class="ph"><div class="fr2">Santé ! / À vos souhaits (éternuement)</div><div class="pl">Na zdrowie</div><div class="fo">na ZDRO-vié</div></div>
+      <div class="phrases" id="phrases">
+        <div class="ph"><div class="txt"><div class="fr2">Bonjour (poli)</div><div class="pl">Dzień dobry</div><div class="fo">djinn DO-brih</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Salut / Coucou (familier)</div><div class="pl">Cześć</div><div class="fo">tchechtch</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Merci</div><div class="pl">Dziękuję</div><div class="fo">djin-KOU-yè</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Merci beaucoup</div><div class="pl">Dziękuję bardzo</div><div class="fo">djin-KOU-yè BAR-dzo</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">S'il vous plaît / De rien / Je vous en prie</div><div class="pl">Proszę</div><div class="fo">PRO-ché</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">De rien / Pas de problème</div><div class="pl">Nie ma za co</div><div class="fo">gnè ma za tso</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Oui / Non</div><div class="pl">Tak / Nie</div><div class="fo">tak / gnè</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Pardon / Excusez-moi</div><div class="pl">Przepraszam</div><div class="fo">pché-PRA-cham</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Au revoir</div><div class="pl">Do widzenia</div><div class="fo">do vi-DZÉ-nia</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">L'addition, s'il vous plaît</div><div class="pl">Poproszę rachunek</div><div class="fo">po-PRO-ché ra-HOU-nek</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Bon appétit</div><div class="pl">Smacznego</div><div class="fo">smatch-NÉ-go</div></div></div>
+        <div class="ph"><div class="txt"><div class="fr2">Santé ! / À vos souhaits (éternuement)</div><div class="pl">Na zdrowie</div><div class="fo">na ZDRO-vié</div></div></div>
       </div>
+
+      <div class="toggle">🌙 Mode sombre <button class="sw" id="theme" aria-label="Mode sombre"></button></div>
     </div>
 
   </div>
 
   <nav class="bottomnav" id="nav">
-    <button class="navbtn active" data-i="0"><span class="ic">🗺️</span><span class="lb">Visites</span></button>
-    <button class="navbtn" data-i="1"><span class="ic">🍽️</span><span class="lb">Restos</span></button>
-    <button class="navbtn" data-i="2"><span class="ic">🥟</span><span class="lb">Plats</span></button>
-    <button class="navbtn" data-i="3"><span class="ic">💱</span><span class="lb">Infos</span></button>
+    <button class="navbtn active" data-i="0" aria-label="Visites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="lb">Visites</span></button>
+    <button class="navbtn" data-i="1" aria-label="Restos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v7a2 2 0 0 0 4 0V2"/><path d="M6 9v13"/><path d="M18 2c-2 1.5-3 4-3 7h3"/><path d="M18 9v13"/></svg><span class="lb">Restos</span></button>
+    <button class="navbtn" data-i="2" aria-label="Plats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 4v3"/></svg><span class="lb">Plats</span></button>
+    <button class="navbtn" data-i="3" aria-label="Carte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="lb">Carte</span></button>
+    <button class="navbtn" data-i="4" aria-label="Infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span class="lb">Infos</span></button>
   </nav>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
   const vp=document.getElementById('viewport');
   const btns=[...document.querySelectorAll('.navbtn')];
   const N=btns.length-1;
   let cur=0;
   function goTo(i){vp.scrollTo({left:i*vp.clientWidth,behavior:'smooth'})}
-  function setActive(i){if(i===cur)return;cur=i;btns.forEach((b,k)=>b.classList.toggle('active',k===i))}
+  function setActive(i){if(i===cur){onShow(i);return}cur=i;btns.forEach((b,k)=>b.classList.toggle('active',k===i));onShow(i)}
   btns.forEach(b=>b.addEventListener('click',()=>goTo(+b.dataset.i)));
   let ticking=false;
   vp.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const i=Math.round(vp.scrollLeft/vp.clientWidth);setActive(Math.max(0,Math.min(N,i)));ticking=false})});
   window.addEventListener('resize',()=>vp.scrollTo({left:cur*vp.clientWidth}));
+  function onShow(i){ if(i===3 && window._map){ setTimeout(()=>window._map.invalidateSize(),120); } }
 
-  // convertisseur
+  // ---- convertisseur ----
   const RATE=4.30;
   const eur=document.getElementById('eur'), pln=document.getElementById('pln');
   eur.addEventListener('input',()=>{pln.value=eur.value!==''?(parseFloat(eur.value)*RATE).toFixed(2):''});
   pln.addEventListener('input',()=>{eur.value=pln.value!==''?(parseFloat(pln.value)/RATE).toFixed(2):''});
 
-  // système "activité faite" (sauvegardé dans le navigateur)
-  (function(){
-    const KEY='wro_done_v1';
-    let done={};
-    try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){done={}}
-    document.querySelectorAll('#p0 .card:not(.no-check)').forEach((card,idx)=>{
-      const id='act-'+idx;
-      const head=card.querySelector('.head');
-      const btn=document.createElement('button');
-      btn.className='check';
-      head.appendChild(btn);
-      const set=(v)=>{card.classList.toggle('done',v);btn.classList.toggle('on',v);btn.textContent=v?'✓ Fait':'À faire';};
-      set(!!done[id]);
-      btn.addEventListener('click',(e)=>{
-        e.preventDefault();e.stopPropagation();
-        const v=!card.classList.contains('done');
-        set(v);
-        if(v)done[id]=1;else delete done[id];
-        try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}
-      });
+  // ---- coches "fait" + favoris + compteur + budget ----
+  const store=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||d)}catch(e){return JSON.parse(d)}};
+  const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+  let done=store('wro_done_v2','{}');
+  let favs=store('wro_fav_v1','{}');
+  const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40);
+  const actCards=[...document.querySelectorAll('#p0 .card:not(.no-check)')];
+
+  function refreshStat(){
+    let n=0,tot=actCards.length;
+    actCards.forEach(c=>{if(c.classList.contains('done'))n++;});
+    document.getElementById('prog').textContent=n+'/'+tot+' visités';
+  }
+
+  actCards.forEach(card=>{
+    const id='act-'+slug(card.querySelector('h3').textContent);
+    const head=card.querySelector('.head');
+    const wrap=document.createElement('div'); wrap.className='actbtns';
+    const chk=document.createElement('button'); chk.className='check';
+    wrap.appendChild(chk); head.appendChild(wrap);
+    const setC=v=>{card.classList.toggle('done',v);chk.classList.toggle('on',v);chk.textContent=v?'✓ Fait':'À faire';};
+    setC(!!done[id]);
+    chk.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const v=!card.classList.contains('done');setC(v);if(v)done[id]=1;else delete done[id];save('wro_done_v2',done);refreshStat();});
+  });
+
+  // favoris sur toutes les cartes avec un titre (visites + restos), sauf hôtel
+  document.querySelectorAll('#p0 .card:not(.no-check), #p1 .card').forEach(card=>{
+    const h=card.querySelector('h3'); if(!h) return;
+    const id='fav-'+slug(h.textContent);
+    const star=document.createElement('button'); star.className='fav'; star.title='Favori';
+    const ab=card.querySelector('.actbtns');
+    if(ab){ ab.insertBefore(star, ab.firstChild); } else { star.classList.add('fav-abs'); card.appendChild(star); }
+    const setF=v=>{star.classList.toggle('on',v);star.textContent=v?'★':'☆';};
+    setF(!!favs[id]);
+    star.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const v=!star.classList.contains('on');setF(v);if(v)favs[id]=1;else delete favs[id];save('wro_fav_v1',favs);});
+  });
+
+  document.getElementById('reset').addEventListener('click',()=>{
+    if(!confirm('Décocher toutes les visites faites ?'))return;
+    done={};save('wro_done_v2',done);
+    actCards.forEach(c=>{c.classList.remove('done');const b=c.querySelector('.check');if(b){b.classList.remove('on');b.textContent='À faire';}});
+    refreshStat();
+  });
+  refreshStat();
+
+  // ---- mode sombre ----
+  const themeBtn=document.getElementById('theme');
+  function setTheme(dark){document.body.classList.toggle('dark',dark);themeBtn.classList.toggle('on',dark);save('wro_theme',dark?1:0);}
+  setTheme(store('wro_theme','0')==1);
+  themeBtn.addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
+
+  // ---- prononciation polonaise ----
+  const canSpeak='speechSynthesis' in window;
+  document.querySelectorAll('#phrases .ph').forEach(ph=>{
+    const word=ph.querySelector('.pl').textContent;
+    const btn=document.createElement('button'); btn.className='speak'; btn.textContent='🔊'; btn.title='Écouter';
+    ph.appendChild(btn);
+    btn.addEventListener('click',()=>{
+      if(!canSpeak){alert('La lecture vocale n\'est pas dispo sur ce navigateur.');return;}
+      try{
+        speechSynthesis.cancel();
+        const u=new SpeechSynthesisUtterance(word); u.lang='pl-PL'; u.rate=.85;
+        const v=speechSynthesis.getVoices().find(v=>v.lang&&v.lang.toLowerCase().startsWith('pl'));
+        if(v)u.voice=v;
+        speechSynthesis.speak(u);
+      }catch(e){}
     });
-  })();
+  });
+  if(canSpeak)speechSynthesis.getVoices();
+
+  // ---- météo en direct (Open-Meteo, sans clé) ----
+  const WC={0:['☀️','Ciel dégagé'],1:['🌤️','Plutôt clair'],2:['⛅','Partiellement nuageux'],3:['☁️','Couvert'],
+    45:['🌫️','Brouillard'],48:['🌫️','Brouillard givrant'],51:['🌦️','Bruine légère'],53:['🌦️','Bruine'],55:['🌦️','Bruine forte'],
+    61:['🌧️','Pluie faible'],63:['🌧️','Pluie'],65:['🌧️','Pluie forte'],66:['🌧️','Pluie verglaçante'],67:['🌧️','Pluie verglaçante'],
+    71:['🌨️','Neige faible'],73:['🌨️','Neige'],75:['🌨️','Neige forte'],77:['❄️','Grésil'],
+    80:['🌦️','Averses'],81:['🌦️','Averses'],82:['⛈️','Fortes averses'],85:['🌨️','Averses de neige'],86:['🌨️','Averses de neige'],
+    95:['⛈️','Orage'],96:['⛈️','Orage + grêle'],99:['⛈️','Orage violent']};
+  const wc=c=>WC[c]||['🌡️','—'];
+  const DAYS=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
+  function loadWeather(){
+    const url='https://api.open-meteo.com/v1/forecast?latitude=51.11&longitude=17.03&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FWarsaw&forecast_days=14';
+    fetch(url).then(r=>r.json()).then(d=>{
+      const cont=document.getElementById('wcontent');
+      const cw=wc(d.current.weather_code);
+      let days='';
+      const t=d.daily.time;
+      for(let i=0;i<t.length && i<10;i++){
+        const dt=new Date(t[i]+'T00:00');
+        const w=wc(d.daily.weather_code[i]);
+        const trip=(t[i]==='2026-08-19'||t[i]==='2026-08-20');
+        const lbl=trip?(t[i]==='2026-08-19'?'19/8':'20/8'):DAYS[dt.getDay()];
+        days+='<div class="wday'+(trip?' trip':'')+'"><div class="wd">'+lbl+'</div><div class="wde">'+w[0]+'</div><div class="wtemp">'+Math.round(d.daily.temperature_2m_max[i])+'° <span class="mn">'+Math.round(d.daily.temperature_2m_min[i])+'°</span></div></div>';
+      }
+      cont.innerHTML='<div class="wnow"><span class="we">'+cw[0]+'</span><span class="wt">'+Math.round(d.current.temperature_2m)+'°C</span><span class="wl">'+cw[1]+'<br>maintenant</span></div><div class="wdays">'+days+'</div><div class="wmeta">Actualisé à '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+' · les jours de ton voyage sont encadrés.</div>';
+    }).catch(()=>{document.getElementById('wcontent').innerHTML='<div class="wmeta">Météo indisponible (hors ligne ?). Réessaie avec une connexion.</div>';});
+  }
+  loadWeather();
+
+  // ---- carte Leaflet ----
+  const VIS=[
+    ['Muzeum Miejskie — Palais royal',51.1074369,17.0288706],['Plac Solny',51.1092,17.0286],
+    ['Rynek & Ratusz',51.1106992,17.0323662],['Aula Leopoldina',51.113741,17.0333581],
+    ['Croisière sur l\'Oder',51.114832,17.032930],['Pont des Pénitents',51.1096497,17.0346578],
+    ['Niewidzialny Dom',51.1096493,17.0357988],['Hala Targowa',51.1128,17.0398],
+    ['Muzeum Iluzji',51.1153227,17.0398388],['Most Tumski',51.1147014,17.0423269],
+    ['Panorama Racławicka',51.1103046,17.0449743],['Hydropolis',51.103524,17.0572038],
+    ['Fontaine multimédia',51.1087669,17.0789491],['Jardin japonais',51.1096604,17.0790447],
+    ['Hala Stulecia',51.1069534,17.0773287],['Zoo & Afrykarium',51.1056261,17.0762488],
+    ['Kolejkowo',51.0945455,17.0196003]
+  ];
+  const RES=[
+    ['IDA',51.1124632,17.0291031],['BABA',51.1127403,17.0318235],['Tarasowa',51.107908,17.0779792],
+    ['MOST',51.114762,17.0311294],['Acquario',51.1064103,17.0304856],['Campo',51.1076478,17.0427782],
+    ['Gustaw',51.1049061,17.0380525],['La Maddalena',51.1143103,17.0314381],['Przystań & Marina',51.1148322,17.0329798],
+    ['The Cork',51.11141,17.0319394],['Le Baromètre',51.110669,17.0331892],['Rynek 26',51.1090146,17.0324464],
+    ['Breakfast Stary Młyn',51.109215,17.0331021],['Wdech/Wydech',51.1161551,17.039087],['dACH!',51.1083788,17.0404281],
+    ['The Bridge Sky Bar',51.1137237,17.0480787],['Skybar',51.0948639,17.0189203],['Emily',51.1110832,17.0347949],
+    ['Enigma',51.1094594,17.0309854],['Veeno',51.1101774,17.0283359],['Olio',51.1095741,17.0367925],
+    ['Drevný Kocúr',51.1095247,17.0305159]
+  ];
+  const HOTEL=['Hotel Altus Palace',51.1049686,17.0364123];
+  function initMap(){
+    if(window._map||typeof L==='undefined')return;
+    const map=L.map('map',{zoomControl:true}).setView([51.108,17.038],13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+    const pin=(name,lat,lng,color)=>{
+      const link='https://www.google.com/maps/dir/?api=1&destination='+lat+','+lng+'&travelmode=walking';
+      L.circleMarker([lat,lng],{radius:7,color:'#fff',weight:2,fillColor:color,fillOpacity:1})
+        .bindPopup('<b>'+name+'</b><br><a href="'+link+'" target="_blank">🚶 M\'y emmener</a>').addTo(map);
+    };
+    VIS.forEach(p=>pin(p[0],p[1],p[2],'#c0451f'));
+    RES.forEach(p=>pin(p[0],p[1],p[2],'#c68a2e'));
+    pin(HOTEL[0],HOTEL[1],HOTEL[2],'#1f6f5c');
+    // position en temps réel
+    let me=null,meC=null,centered=false;
+    map.on('locationfound',e=>{
+      if(!me){me=L.circleMarker(e.latlng,{radius:8,color:'#fff',weight:3,fillColor:'#1e73e8',fillOpacity:1}).addTo(map).bindPopup('📍 Vous êtes ici');}
+      else me.setLatLng(e.latlng);
+      if(meC){meC.setLatLng(e.latlng).setRadius(e.accuracy);}else{meC=L.circle(e.latlng,{radius:e.accuracy,color:'#1e73e8',weight:1,fillColor:'#1e73e8',fillOpacity:.08}).addTo(map);}
+      if(!centered){map.setView(e.latlng,15);centered=true;}
+    });
+    map.locate({watch:true,enableHighAccuracy:true,maximumAge:5000});
+    window._map=map;
+  }
+  initMap();
 </script>
 </body>
 </html>
