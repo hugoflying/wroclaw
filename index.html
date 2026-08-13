@@ -29,6 +29,20 @@
   .note{background:#eaf4f0;border:1px solid #cfe6dd;border-radius:14px;padding:12px 14px;font-size:13px;color:#2c5a4f;margin-bottom:14px}
   .note.warn{background:#fbf1e0;border-color:#eecfa0;color:#7a5a24}
 
+  .flights{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 3px 12px rgba(70,50,20,.06);margin-bottom:14px}
+  .flights .ttl{font-size:14px;font-weight:800;margin-bottom:8px}
+  .fl{padding:12px 0;border-bottom:1px solid var(--line)}
+  .fl:last-of-type{border-bottom:0}
+  .fl-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:9px}
+  .fl-row{display:flex;align-items:center;gap:10px}
+  .fl-seg{display:flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:56px}
+  .fl-seg .ap{font-size:22px;font-weight:800;letter-spacing:1px;line-height:1}
+  .fl-seg .t{font-size:14px;color:var(--muted);font-weight:700;margin-top:3px}
+  .fl-line{flex:1;display:flex;align-items:center;color:var(--accent);font-size:15px}
+  .fl-line::before,.fl-line::after{content:"";height:2px;flex:1;background:var(--line)}
+  .fl-line span{padding:0 6px}
+  .fl-note{font-size:12px;color:var(--muted);margin-top:10px}
+
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(70,50,20,.06)}
   .card .head{display:flex;align-items:flex-start;gap:10px}
   .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;margin-top:2px}
@@ -552,10 +566,26 @@
         <div class="rate-info">Taux indicatif : 1 € ≈ 4,30 zł · tape dans un champ, l'autre se met à jour.</div>
       </div>
 
-      <div class="note">✈️ <b>Vols</b><br>
-        <b>Aller</b> — mardi 19 août : Beauvais <b>8h20</b> → Wrocław <b>10h15</b><br>
-        <b>Retour</b> — mercredi 20 août : Wrocław <b>19h30</b> → Beauvais <b>21h30</b><br>
-        (quitte le centre vers 17h pour l'aéroport)</div>
+      <div class="flights">
+        <div class="ttl">✈️ Vols</div>
+        <div class="fl">
+          <div class="fl-label">Aller · mar. 19 août</div>
+          <div class="fl-row">
+            <div class="fl-seg"><span class="ap">BVA</span><span class="t">8h20</span></div>
+            <div class="fl-line"><span>✈</span></div>
+            <div class="fl-seg"><span class="ap">WRO</span><span class="t">10h15</span></div>
+          </div>
+        </div>
+        <div class="fl">
+          <div class="fl-label">Retour · mer. 20 août</div>
+          <div class="fl-row">
+            <div class="fl-seg"><span class="ap">WRO</span><span class="t">19h30</span></div>
+            <div class="fl-line"><span>✈</span></div>
+            <div class="fl-seg"><span class="ap">BVA</span><span class="t">21h30</span></div>
+          </div>
+        </div>
+        <div class="fl-note">🕔 Quitte le centre vers 17h pour rejoindre l'aéroport (WRO).</div>
+      </div>
 
       <div class="note">🚕 <b>Aéroport ⇄ centre :</b> Bolt/Uber (~9–14 €) ou bus 106.</div>
 
@@ -568,12 +598,15 @@
         <div class="ph"><div class="fr2">Bonjour (poli)</div><div class="pl">Dzień dobry</div><div class="fo">djinn DO-brih</div></div>
         <div class="ph"><div class="fr2">Salut / Coucou (familier)</div><div class="pl">Cześć</div><div class="fo">tchechtch</div></div>
         <div class="ph"><div class="fr2">Merci</div><div class="pl">Dziękuję</div><div class="fo">djin-KOU-yè</div></div>
-        <div class="ph"><div class="fr2">S'il vous plaît / Je vous en prie</div><div class="pl">Proszę</div><div class="fo">PRO-ché</div></div>
+        <div class="ph"><div class="fr2">S'il vous plaît / De rien / Je vous en prie</div><div class="pl">Proszę</div><div class="fo">PRO-ché</div></div>
         <div class="ph"><div class="fr2">Oui / Non</div><div class="pl">Tak / Nie</div><div class="fo">tak / gnè</div></div>
         <div class="ph"><div class="fr2">Pardon / Excusez-moi</div><div class="pl">Przepraszam</div><div class="fo">pché-PRA-cham</div></div>
         <div class="ph"><div class="fr2">Au revoir</div><div class="pl">Do widzenia</div><div class="fo">do vi-DZÉ-nia</div></div>
         <div class="ph"><div class="fr2">L'addition, s'il vous plaît</div><div class="pl">Poproszę rachunek</div><div class="fo">po-PRO-ché ra-HOU-nek</div></div>
-        <div class="ph"><div class="fr2">Santé ! (à table)</div><div class="pl">Na zdrowie</div><div class="fo">na ZDRO-vié</div></div>
+        <div class="ph"><div class="fr2">Merci beaucoup</div><div class="pl">Dziękuję bardzo</div><div class="fo">djin-KOU-yè BAR-dzo</div></div>
+        <div class="ph"><div class="fr2">De rien / Pas de problème</div><div class="pl">Nie ma za co</div><div class="fo">gnè ma za tso</div></div>
+        <div class="ph"><div class="fr2">Bon appétit</div><div class="pl">Smacznego</div><div class="fo">smatch-NÉ-go</div></div>
+        <div class="ph"><div class="fr2">Santé ! / À vos souhaits (éternuement)</div><div class="pl">Na zdrowie</div><div class="fo">na ZDRO-vié</div></div>
       </div>
     </div>
 
