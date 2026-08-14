@@ -1,8 +1,8 @@
 // Service worker — Wrocław PWA
-const CACHE = 'wroclaw-v1';
+const CACHE = 'wroclaw-v2';
 const ASSETS = [
   './',
-  './wroclaw-app.html',
+  './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
