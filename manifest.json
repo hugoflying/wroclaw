@@ -3,7 +3,7 @@
   "short_name": "Wrocław",
   "description": "Visites, restos, carte, météo et infos pour Wrocław.",
   "lang": "fr",
-  "start_url": "./wroclaw-app.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
